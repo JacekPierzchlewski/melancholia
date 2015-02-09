@@ -27,7 +27,7 @@ import numpy as np
 # %%#############################################################################
 # Function prints 1D or 2D numpy array
 #################################################################################
-def report(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='   ', iMaxCols=4096, bVert1D=1, bPrintHeader=0):
+def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='   ', iMaxCols=4096, bVert1D=1, bPrintHeader=0):
     """
     
     Inputs:
@@ -53,8 +53,6 @@ def report(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='  
 
     - 8 **bPrintHeader** (*integer*) Add header with array name, dimension and size?
                                      1 - yes add, 0 - do not add [optional, default = 0]
-
-
     Output:
     
     - 1. **strMessage** (*string*)   String with entries of the numpy array
@@ -62,6 +60,8 @@ def report(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='  
 
     # Check if the array is 1-dimension or 2-dimensions matrix
     if (arrA.ndim == 1):
+        
+        # For 1 dimensinal array, the array may be printed horizontally or vertically
         if bVert1D == 1:
             strMessage = _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader)
         else:

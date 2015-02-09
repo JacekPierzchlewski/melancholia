@@ -33,36 +33,36 @@ if __name__ == '__main__':
 
     # Vector printing: The simplest usage
     vA = np.random.rand(100)
-    strPrintedVect = melancholia.report(vA)
+    strPrintedVect = melancholia.printA(vA)
     hReport.write(strPrintedVect)
 
     # Vector printing: integer elements
     vA = np.random.randint(-100, 100, 100)
-    strPrintedVect = melancholia.report(vA, strFormat = '%d')
+    strPrintedVect = melancholia.printA(vA, strFormat = '%d')
     hReport.write(strPrintedVect)
 
     # Vector printing: horizontal vector printing
     vA = np.random.rand(100)
-    strPrintedVect = melancholia.report(vA, bVert1D=0)
+    strPrintedVect = melancholia.printA(vA, bVert1D=0)
     hReport.write(strPrintedVect)
 
     # Vector printing: horizontal vector printing with integer elements
     vA = np.random.randint(-100, 100, 1000)
-    strPrintedVect = melancholia.report(vA, bVert1D=0, strFormat = '%d')
+    strPrintedVect = melancholia.printA(vA, bVert1D=0, strFormat = '%d')
     hReport.write(strPrintedVect)
 
     # Vector printing: horizontal vector printing with shorter lines
     vA = np.random.rand(100)
-    strPrintedVect = melancholia.report(vA, bVert1D=0, iMaxCols = 120)
+    strPrintedVect = melancholia.printA(vA, bVert1D=0, iMaxCols = 120)
     hReport.write(strPrintedVect)
 
     # Vector printing: horizontal vector printing with shorter lines and fancy delimiter
     vA = np.random.randint(-100, 100, 1000)
-    strPrintedVect = melancholia.report(vA, bVert1D=0, iMaxCols = 120, strDelimiter=' -|||- ')
+    strPrintedVect = melancholia.printA(vA, bVert1D=0, iMaxCols = 120, strDelimiter=' -|||- ')
     hReport.write(strPrintedVect)
 
     # Vector printing: horizontal vector printing with shorter lines fancy delimiter and header
     vA = np.random.rand(100)
-    strPrintedVect = melancholia.report(vA, bVert1D=0, iMaxCols = 120, strDelimiter=' -|||- ',
+    strPrintedVect = melancholia.printA(vA, bVert1D=0, iMaxCols = 120, strDelimiter=' -|||- ',
                                         strArrayName = 'vA', bPrintHeader=1)
     hReport.write(strPrintedVect)

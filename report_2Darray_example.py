@@ -34,31 +34,31 @@ if __name__ == '__main__':
     # The simplest usage
     strInfo = "The simplest example of 2D array printing: \n\n"
     mA = np.random.rand(10, 10)
-    strPrintedMat = strInfo + melancholia.report(mA)
+    strPrintedMat = strInfo + melancholia.printA(mA)
     hReport.write(strPrintedMat)
 
     # Custom delimiter
     strInfo = "2D array printing with a custom delimiter: \n\n"
     mA = np.random.rand(10, 10)
-    strPrintedMat = strInfo + melancholia.report(mA, strDelimiter='...')
+    strPrintedMat = strInfo + melancholia.printA(mA, strDelimiter='...')
     hReport.write(strPrintedMat)
 
     # Custom format
     strInfo = "2D array printing with integer format: \n\n"
     mA = np.random.randint(-100, 100, (40, 10))
-    strPrintedMat = strInfo + melancholia.report(mA, strFormat='%d')
+    strPrintedMat = strInfo + melancholia.printA(mA, strFormat='%d')
     hReport.write(strPrintedMat)
 
     # Print array entries as integer with custom delimiter
     strInfo = "2D array printing with integer format and custom delimiter: \n\n" 
     mA = np.random.randint(-100, 100, (40, 20))
-    strPrintedMat = strInfo + melancholia.report(mA, strFormat='%d', strDelimiter=' <---> ')
+    strPrintedMat = strInfo + melancholia.printA(mA, strFormat='%d', strDelimiter=' <---> ')
     hReport.write(strPrintedMat)
 
     # Add array name and header
     strInfo = "2D array printing with integer format, custom delimiter and array header: \n\n" 
     mA = np.random.rand(10, 10)
-    strPrintedMat = strInfo + melancholia.report(mA, strFormat='%.2f', strDelimiter='...', 
+    strPrintedMat = strInfo + melancholia.printA(mA, strFormat='%.2f', strDelimiter='...', 
                                                  strArrayName = 'mA', bPrintHeader=1)
     hReport.write(strPrintedMat)
 
@@ -68,11 +68,11 @@ if __name__ == '__main__':
     # The maximum number of characters in a single line
     strInfo = "Wrap line printing after 59 characters: \n\n" 
     mA = np.random.rand(10, 10)
-    strPrintedMat = melancholia.report(mA,  iMaxCols = 59)
+    strPrintedMat = melancholia.printA(mA,  iMaxCols = 59)
     hReport.write(strPrintedMat)
 
     # The maximum number of characters in a single line, custom delimiter
     strInfo = "Wrap line printing after 120 characters, custom delimiter: \n\n" 
     mA = np.random.rand(10, 20)
-    strPrintedMat = melancholia.report(mA,  iMaxCols = 109, strDelimiter=' <---> ')
+    strPrintedMat = melancholia.printA(mA,  iMaxCols = 109, strDelimiter=' <---> ')
     hReport.write(strPrintedMat)
