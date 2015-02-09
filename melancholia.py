@@ -1,6 +1,11 @@
 """
 This module prints Numpy arrays in a human readable way. |br|
 
+
+*List of functions*:
+
+    
+
 Copyright (C) <2014-2015>  Jacek Pierzchlewski
                            jap [at] es dot aau dot dk
                            pierzchlewski dot jacek [at] gmail.com
@@ -73,300 +78,6 @@ def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='  
         raise ValueError('Numpy array which is to be printed to a file must be of 1- or 2-dimensions!')
 
     return strMessage + '\n'
-
-# %%#############################################################################
-# Function prints 1D numpy array vertically
-#################################################################################
-def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
-    """
-    Inputs:
-    
-    - 1. **arrA** (*Numpy array*)     Array to be printed
-            
-    - 2 **strArrayName** (*string*)   Name of the array
-    
-    - 3 **strFormat** (*string*)      Format of printing entires of the array [optional, default = '%f']
-                                      Acceptable formats are %d, %f, %.1f, %.2f, %.3f, %.4f, ...
-
-    - 4 **iRowBrake** (*integer*)     The number of rows before the column indices are printed again
-    
-    - 5 **bPrintHeader** (*integer*)  Add header with array name, dimension and size?
-                                      1 - yes add, 0 - do not add [optional, default = 0]
-
-    Output:
-
-    - 1. **strMessage** (*string*)   String with entries of the numpy array
-
-    """
-
-    # Get technial parameters of 1D array printing
-    (nEnt, bInt, nM, nX, nXl, nC, nD, nMaxChrInd, nMaxChrEnt, nMinChrEnt) = _getTechnial1Dim(arrA, strFormat, '')
-    # nEnt - the number of entries in the array
-    # bInt - flag 'integer printing only'
-    # nM   - the number of characters in mantissa of the array entries
-    # nX   - the highest number of characters in integer part of entries of the array
-    # nXl  - the lowest number of characters in integer part of entries of the array
-    # nC   - the max number of characters in indices of the array
-    # nD   - the number of characters in delimter
-    # nMaxChrInd - the maximum number of characters in indices of the array
-    # nMaxChrEnt - the maximum number of characters in entries of the array
-    # nMinChrEnt - the minimum number of characters in entries of the array
-
-    # --------------------------------------------------------------------
-    # Create a list with spaces after indices of an entry
-    lSpaces = []
-    for inxSpace in np.arange(nC):
-        strSpace = (nC - inxSpace - 1) * ' '
-        lSpaces.append(strSpace)
-
-    # Create a list with extra spaces added to entries
-    nLongSpace = nX - nXl                        # The longest space to be added to entries
-    lSpacesEnt = []                              # Start a list with blank spaces
-    for iSpaceSize in np.arange(nLongSpace+1):   # Create a list with blank space
-        lSpacesEnt.append(iSpaceSize * ' ')
-    # --------------------------------------------------------------------
-
-    # Print dimension, size, type  and name of a 1D array, if requested
-    if (bPrintHeader == 1):
-        strMessage = _dimSizTypeName_array(arrA, strArrayName) + '\n'
-    else:
-        strMessage = ''
-        
-    # Loop over all entries in the vector
-    nDig = 1;   # The number of digits in the current index of an entry
-    iThr = 10;  # The next threshold which changes the number of digits 
-    strPrintEntry = '\'%s\' %% (arrA[inxEntr])' % (strFormat)  # Command which prints the entry
-    for inxEntr in np.arange(nEnt):
-
-        # If the threshold is reached, move forward the number of digits in index of entry  
-        if inxEntr == iThr:
-            nDig = nDig + 1
-            iThr = iThr * 10  # Move the threshold forward
-
-        # Print index of the current entry and its value
-        strMessage = strMessage + ('%d:%s  ') % (inxEntr, lSpaces[nDig-1])  # Print index of the current entry
-        strEntry = eval(strPrintEntry)                # Print the entry
-        nBlankSpace = len(strEntry) - nMaxChrEnt      # Compute the number of blank spaces which must be added after an entry
-        if arrA[inxEntr] >= 0:    # If the number is 0 or positive, add a blank space before the number
-            strBlankMinus = ' '
-        else:
-            strBlankMinus = ''
-        strMessage = strMessage + strBlankMinus + strEntry + lSpacesEnt[nBlankSpace] + '\n'   # Print the entry
-        
-        # Add a row brake, if iRowBrake has passed
-        if ((inxEntr+1) %  iRowBrake) == 0:
-            strMessage = strMessage + '\n'
-    
-    return strMessage
-
-
-# %%#############################################################################
-# Function prints 1D numpy array horizontally
-#################################################################################
-def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, bPrintHeader):
-    """
-    Inputs:
-    
-    - 1. **arrA** (*Numpy array*)     Array to be printed
-            
-    - 2 **strArrayName** (*string*)   Name of the array
-    
-    - 3 **strFormat** (*string*)      Format of printing entires of the array 
-                                      Acceptable formats are %d, %f, %.1f, %.2f, %.3f, %.4f, ...
-
-    - 4 **iRowBrake** (*integer*)     The number of rows before the column indices are printed again
-
-    - 5 **strDelimiter** (*string*)   Delimiter printed between the entries of the array  
-                                     
-    - 6 **iMaxCols** (*integer*)      The maximum number of text columns used ot print a single row 
-
-    - 7 **bPrintHeader** (*integer*)  Add header with array name, dimension and size?
-                                      1 - yes add, 0 - do not add [optional, default = 0]
-
-    Output:
-    
-    - 1. **strMessage** (*string*)   String with entries of the numpy array
-    """
-    
-    # Get technial parameters of 1D array printing
-    (nEnt, bInt, nM, nX, nXl, nC, nD, nMaxChrInd, nMaxChrEnt, nMinChrEnt) = _getTechnial1Dim(arrA, strFormat, strDelimiter)
-    # nEnt - the number of entries in the array
-    # bInt - flag 'integer printing only'
-    # nM   - the number of characters in mantissa of the array entries
-    # nX   - the highest number of characters in integer part of entries of the array
-    # nXl  - the lowest number of characters in integer part of entries of the array
-    # nC   - the max number of characters in indices of the array
-    # nD   - the number of characters in delimter
-    # nMaxChrInd - the maximum number of characters in indices of the array
-    # nMaxChrEnt - the maximum number of characters in entries of the array
-    # nMinChrEnt - the minimum number of characters in entries of the array
-    
-    # Create additional spaces for indices of entries and the entries 
-    # These spaces are used to equalize indices of entries with the entries
-    if (nMaxChrInd >= nMaxChrEnt):
-        strAddSpaceEnt = (nMaxChrInd - nMaxChrEnt) * ' '
-        strAddSpaceInd = ''
-    else:
-        strAddSpaceEnt = ''
-        strAddSpaceInd = (nMaxChrEnt - nMaxChrInd) * ' '
-    # ---
-
-    # Create a list with extra spaces added to indices of entries
-    # These spaces are used to equalize indices of entries with maximally long indices of entries
-    nLongSpace = nC - 1                                # The longest space to be added to indices of entries
-    lSpacesInd = []                                    # Start a list with blank spaces
-    for iSpaceSize in np.arange(nLongSpace, -1, -1):   # Create a list with blank space
-        lSpacesInd.append(iSpaceSize * ' ')
-
-    # Create a list with extra spaces added to entries
-    # These spaces are used to equalize entries with maximally long entries
-    nLongSpace = nMaxChrEnt - nMinChrEnt         # The longest space to be added to entries
-    lSpacesEnt = []                              # Start a list with blank spaces
-    for iSpaceSize in np.arange(nLongSpace+1):   # Create a list with blank spaces
-        lSpacesEnt.append(iSpaceSize * ' ')
-
-    # --------------------------------------------------------------------    
-    # Check if it is possible to print at least one entry?
-
-    # Calculate the total number of characters needed to print all entries
-    nChrWhiteEntDelim = len(strAddSpaceEnt) + nX + nM + nD    # Whitespace + Integter  + Mantissa + delimiter
-    if bInt == 0:                                             # Add 1 because of . in float numbers
-        nChrWhiteEntDelim = nChrWhiteEntDelim + 1             # ^
-    if (arrA[arrA<0].size) > 0:                               # Add 1 because of '-' in negative numbers
-        nChrWhiteEntDelim = nChrWhiteEntDelim + 1             # ^
-
-    if ((iMaxCols - 4 - 1) < nChrWhiteEntDelim):
-        raise ValueError('The requested line is to short to print a single entry')
-
-    # --------------------------------------------------------------------
-    # Compute the line parameters: the number of lines and number of entries in one line        
-    nEnt = arrA.size    # Get the number of entries in 1D array
-
-    # Compute the number of entries in one line
-    nEntrypLine = np.floor((iMaxCols - 4 - 1) / nChrWhiteEntDelim).astype(int)
-
-    # Into how many lines do we have to break the printing?
-    nLines = np.ceil(nEnt / nEntrypLine)
-
-    # Compute the number of entries in the last line
-    nEntrypLastLine = nEnt - nEntrypLine * (nLines - 1)
-
-    # --------------------------------------------------------------------
-
-    # Print dimension, size, type  and name of a 1D array, if requested
-    if (bPrintHeader == 1):
-        strMessage = _dimSizTypeName_array(arrA, strArrayName) + '\n'
-    else:
-        strMessage = ''
-
-    # Loop over all lines
-    iStartEntry = 0   # Starting index of the current entry
-    for inxLine in np.arange(nLines):
-        # If it is the last line, the number of entries is different
-        if inxLine == (nLines - 1):
-            nEntrypLine = nEntrypLastLine
-
-        strMessage = strMessage + 4 * ' '   # Print the margin
-        strMessage = strMessage + _printIndEnt_1D(arrA, iStartEntry,           # Print indices of entries
-                                                  nEntrypLine, lSpacesInd,     # ^
-                                                  strAddSpaceInd, nD) + '\n'   # ^
-
-        strMessage = strMessage + 4 * ' '   # Print the margin
-        strMessage = strMessage + _printEnt_1D(arrA, iStartEntry,              # Print entries
-                                               nEntrypLine,                    # ^
-                                               strAddSpaceEnt, lSpacesEnt,     # ^
-                                               strDelimiter, strFormat,        # ^
-                                               nMaxChrEnt) + '\n\n'            # ^
-
-        iStartEntry = iStartEntry + nEntrypLine  # Move forward the start entry
-
-    # Add new line at the end of the output string
-    strMessage = strMessage + '\n'
-    return strMessage
-
-
-# %%#############################################################################
-# Function prints in one line indices of selected entries from an array
-#################################################################################
-def _printIndEnt_1D(arrA, iStartEntry, nEntries, lSpacesInd, strAddSpaceInd, nD):
-    """
-    Inputs:
-    
-    - 1. **arrA** (*Numpy array*)       Array to be printed
-            
-    - 2. **iStartEntry** (*integer*)    Index of the first entry to be printed
-    
-    - 3. **nEntries** (*integer*)       The number of entries to be printed 
-                                        
-    - 4. **strAddSpaceEnt** (*string*)  Blank spaces before every entry to equalize length of printed entries
-                                        with printed indices of column
-
-    - 5. **nD** (*integer*)             The number of characters in delimiter
-    
-    Output:
-    
-    - 1. **strMessage** (*string*)   String with indices of selected entries of the numpy array 
-    """
-
-    # Get the lowest number of digits in indices of entries
-    if (iStartEntry >= 2):
-        nIndDigL = np.ceil(np.log10(iStartEntry)).astype(int)
-    else:
-        nIndDigL = 1
-
-    strMessage = ''
-    nDigs = nIndDigL   # The current number of digits
-    iThr = 10**nDigs   # Next threshold which changes the number of digits
-    for inxEntry in np.arange(iStartEntry, iStartEntry+nEntries):   # Loop over all entries
-        if inxEntry == iThr:     # Threshold is reached
-            nDigs = nDigs + 1    # The number of digits
-            iThr = iThr * 10     # Threshold
-        strMessage = strMessage + ('%s%s%d:%s') % (strAddSpaceInd, lSpacesInd[nDigs-1], inxEntry, nD * ' ')  # Print the entry
-
-    return strMessage
-
-
-# %%#############################################################################
-# Function prints in one line selected entries from an array 
-#################################################################################
-def _printEnt_1D(arrA, iStartEntry, nEntries, strAddSpaceEnt, lSpaces, strDelimiter, strFormat, nMaxChrEnt):
-    """
-    Inputs:
-
-    - 1. **arrA** (*Numpy array*)       Array to be printed
-
-    - 2. **iStartEntry** (*integer*)    Index of the first entry to be printed
-
-    - 3. **nEntries** (*integer*)       The number of entries to be printed
-
-    - 4. **strAddSpaceEnt** (*string*)  Blank spaces before every entry to equalieze length of printed entries
-                                        with printed indices of column
-
-    - 5. **lSpaces** (*list*)           List with blank spaces used to equalize length of printed entries
-
-    - 6. **strDelimiter** (*string*)    Delimiter printed between the entries
-
-    - 7. **strFormat** (*string*)       Format of printing entires of the array
-                                        Acceptable formats are %d, %f, %.1f, %.2f, %.3f, %.4f, ...
-
-    - 8. **nMaxChrEnt** (*integer*)     The maximum possible number of characters used to print one entry from the array
-
-    Output:
-
-    - 1. **strMessage** (*string*)   String with selected entries of the numpy array
-    """
-    # Create a command which prints a single entry
-    strPrintEntry = '\'%s\' %% (arrA[inxEntr])' % (strFormat)
-
-    strMessage = ''
-    # Loop over all entries
-    for inxEntr in np.arange(iStartEntry, iStartEntry+nEntries):
-        strEntry = eval(strPrintEntry)    # Create the current entry
-        nChrEntry = len(strEntry)         # The number of characters in the current entry
-        nSpace = nMaxChrEnt - nChrEntry   # The lenght of a space which must be added
-        strMessage = strMessage + ('%s%s%s%s') % (strAddSpaceEnt, lSpaces[nSpace], strEntry, strDelimiter)  # Print the entry
-
-    return strMessage
 
 
 # %%#############################################################################
@@ -444,7 +155,7 @@ def _decodeString(strFormat):
 
     elif (strFormat[1] == '.'):
 
-        if len(strFormat) == 2:    # Dot  can not be the last digit
+        if len(strFormat) == 2:    # Dot can not be the last digit
             _decodeStringErr(strFormat)
 
         if not ('0' <= strFormat[2] <= '9'):  # There must be a number after the dot
@@ -485,9 +196,222 @@ def _decodeStringErr(strFormat):
 
 
 # %%#############################################################################
+# Function prints 1D numpy array vertically
+#################################################################################
+def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
+    """
+    Inputs:
+    
+    - 1. **arrA** (*Numpy array*)     Array to be printed
+            
+    - 2 **strArrayName** (*string*)   Name of the array
+    
+    - 3 **strFormat** (*string*)      Format of printing entires of the array [optional, default = '%f']
+                                      Acceptable formats are %d, %f, %.1f, %.2f, %.3f, %.4f, ...
+
+    - 4 **iRowBrake** (*integer*)     The number of rows before the column indices are printed again
+    
+    - 5 **bPrintHeader** (*integer*)  Add header with array name, dimension and size?
+                                      1 - yes add, 0 - do not add [optional, default = 0]
+
+    Output:
+
+    - 1. **strMessage** (*string*)   String with entries of the numpy array
+
+    """
+
+    # Get technial parameters of 1D array printing
+    (nEnt, bInt, nM, nX, nXl, nC, nD, nMaxChrInd, nMaxChrEnt, nMinChrEnt) = _1DgetTechnical(arrA, strFormat, '')
+    # nEnt - the number of entries in the array
+    # bInt - flag 'integer printing only'
+    # nM   - the number of characters in mantissa of the array entries
+    # nX   - the highest number of characters in integer part of entries of the array
+    # nXl  - the lowest number of characters in integer part of entries of the array
+    # nC   - the max number of characters in indices of the array
+    # nD   - the number of characters in delimter
+    # nMaxChrInd - the maximum number of characters in indices of the array
+    # nMaxChrEnt - the maximum number of characters in entries of the array
+    # nMinChrEnt - the minimum number of characters in entries of the array
+
+    # --------------------------------------------------------------------
+    # Create a list with spaces after indices of an entry
+    lSpacesInd = []
+    for inxSpace in np.arange(nC):
+        strSpace = (nC - inxSpace - 1) * ' '
+        lSpacesInd.append(strSpace)
+
+    # Create a list with extra spaces added to entries
+    nLongSpace = nX - nXl                        # The longest space to be added to entries
+    lSpacesEnt = []                              # Start a list with blank spaces
+    for iSpaceSize in np.arange(nLongSpace+1):   # Create a list with blank space
+        lSpacesEnt.append(iSpaceSize * ' ')
+   
+    # --------------------------------------------------------------------
+    # Printing start here:
+    
+    # Print dimension, size, type  and name of a 1D array, if requested
+    if (bPrintHeader == 1):
+        strMessage = _dimSizTypeName_array(arrA, strArrayName) + '\n'
+    else:
+        strMessage = ''
+        
+    # Loop over all entries in the vector
+    nDig = 1;   # The number of digits in the current index of an entry
+    iThr = 10;  # The next threshold which changes the number of digits 
+    strPrintEntry = '\'%s\' %% (arrA[inxEntr])' % (strFormat)  # Command which prints the entry
+    for inxEntr in np.arange(nEnt):
+
+        # If the threshold is reached, move forward the number of digits in index of entry  
+        if inxEntr == iThr:
+            nDig = nDig + 1
+            iThr = iThr * 10  # Move the threshold forward
+
+        # Print index of the current entry and its value
+        strMessage = strMessage + ('%d:%s  ') % (inxEntr, lSpacesInd[nDig-1])  # Print index of the current entry
+        strEntry = eval(strPrintEntry)                # Print the entry
+        nBlankSpace = len(strEntry) - nMaxChrEnt      # Compute the number of blank spaces which must be added after an entry
+        if arrA[inxEntr] >= 0:    # If the number is 0 or positive, add a blank space before the number
+            strBlankMinus = ' '
+        else:
+            strBlankMinus = ''
+        strMessage = strMessage + strBlankMinus + strEntry + lSpacesEnt[nBlankSpace] + '\n'   # Print the entry
+        
+        # Add a row brake, if iRowBrake has passed
+        if ((inxEntr+1) %  iRowBrake) == 0:
+            strMessage = strMessage + '\n'
+    
+    return strMessage
+
+
+# %%#############################################################################
+# Function prints 1D numpy array horizontally
+#################################################################################
+def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, bPrintHeader):
+    """
+    Inputs:
+    
+    - 1. **arrA** (*Numpy array*)     Array to be printed
+            
+    - 2 **strArrayName** (*string*)   Name of the array
+    
+    - 3 **strFormat** (*string*)      Format of printing entires of the array 
+                                      Acceptable formats are %d, %f, %.1f, %.2f, %.3f, %.4f, ...
+
+    - 4 **iRowBrake** (*integer*)     The number of rows before the column indices are printed again
+
+    - 5 **strDelimiter** (*string*)   Delimiter printed between the entries of the array  
+                                     
+    - 6 **iMaxCols** (*integer*)      The maximum number of text columns used ot print a single row 
+
+    - 7 **bPrintHeader** (*integer*)  Add header with array name, dimension and size?
+                                      1 - yes add, 0 - do not add [optional, default = 0]
+
+    Output:
+    
+    - 1. **strMessage** (*string*)   String with entries of the numpy array
+    """
+    
+    # Get technial parameters of 1D array printing
+    (nEnt, bInt, nM, nX, nXl, nC, nD, nMaxChrInd, nMaxChrEnt, nMinChrEnt) = _1DgetTechnical(arrA, strFormat, strDelimiter)
+    # nEnt - the number of entries in the array
+    # bInt - flag 'integer printing only'
+    # nM   - the number of characters in mantissa of the array entries
+    # nX   - the highest number of characters in integer part of entries of the array
+    # nXl  - the lowest number of characters in integer part of entries of the array
+    # nC   - the max number of characters in indices of the array
+    # nD   - the number of characters in delimter
+    # nMaxChrInd - the maximum number of characters in indices of the array
+    # nMaxChrEnt - the maximum number of characters in entries of the array
+    # nMinChrEnt - the minimum number of characters in entries of the array
+    
+    # Create additional spaces for indices of entries and the entries 
+    # These spaces are used to equalize indices of entries with the entries
+    if (nMaxChrInd >= nMaxChrEnt):
+        strAddSpaceEnt = (nMaxChrInd - nMaxChrEnt) * ' '
+        strAddSpaceInd = ''
+    else:
+        strAddSpaceEnt = ''
+        strAddSpaceInd = (nMaxChrEnt - nMaxChrInd) * ' '
+    # ---
+
+    # Create a list with extra spaces added to indices of entries
+    # These spaces are used to equalize indices of entries with maximally long indices of entries
+    nLongSpace = nC - 1                                # The longest space to be added to indices of entries
+    lSpacesInd = []                                    # Start a list with blank spaces
+    for iSpaceSize in np.arange(nLongSpace, -1, -1):   # Create a list with blank space
+        lSpacesInd.append(iSpaceSize * ' ')
+
+    # Create a list with extra spaces added to entries
+    # These spaces are used to equalize entries with maximally long entries
+    nLongSpace = nMaxChrEnt - nMinChrEnt         # The longest space to be added to entries
+    lSpacesEnt = []                              # Start a list with blank spaces
+    for iSpaceSize in np.arange(nLongSpace+1):   # Create a list with blank spaces
+        lSpacesEnt.append(iSpaceSize * ' ')
+
+    # --------------------------------------------------------------------    
+    # Check if it is possible to print at least one entry?
+
+    # Calculate the total number of characters needed to print all entries
+    nChrWhiteEntDelim = len(strAddSpaceEnt) + nX + nM + nD    # Whitespace + Integter  + Mantissa + delimiter
+    if bInt == 0:                                             # Add 1 because of . in float numbers
+        nChrWhiteEntDelim = nChrWhiteEntDelim + 1             # ^
+    if (arrA[arrA<0].size) > 0:                               # Add 1 because of '-' in negative numbers
+        nChrWhiteEntDelim = nChrWhiteEntDelim + 1             # ^
+
+    if ((iMaxCols - 4 - 1) < nChrWhiteEntDelim):
+        raise ValueError('The requested line is to short to print a single entry')
+
+    # --------------------------------------------------------------------
+    # Compute the line parameters: the number of lines and number of entries in one line        
+    nEnt = arrA.size    # Get the number of entries in 1D array
+
+    # Compute the number of entries in one line
+    nEntrypLine = np.floor((iMaxCols - 4 - 1) / nChrWhiteEntDelim).astype(int)
+
+    # Into how many lines do we have to break the printing?
+    nLines = np.ceil(nEnt / nEntrypLine)
+
+    # Compute the number of entries in the last line
+    nEntrypLastLine = nEnt - nEntrypLine * (nLines - 1)
+
+    # --------------------------------------------------------------------
+
+    # Print dimension, size, type  and name of a 1D array, if requested
+    if (bPrintHeader == 1):
+        strMessage = _dimSizTypeName_array(arrA, strArrayName) + '\n'
+    else:
+        strMessage = ''
+
+    # Loop over all lines
+    iStartEntry = 0   # Starting index of the current entry
+    for inxLine in np.arange(nLines):
+        # If it is the last line, the number of entries is different
+        if inxLine == (nLines - 1):
+            nEntrypLine = nEntrypLastLine
+
+        strMessage = strMessage + 4 * ' '   # Print the margin
+        strMessage = strMessage + _1DprintIndices(arrA, iStartEntry,           # Print indices of entries
+                                                  nEntrypLine, lSpacesInd,     # ^
+                                                  strAddSpaceInd, nD) + '\n'   # ^
+
+        strMessage = strMessage + 4 * ' '   # Print the margin
+        strMessage = strMessage + _1DprintEntries(arrA, iStartEntry,              # Print entries
+                                                  nEntrypLine,                    # ^
+                                                  strAddSpaceEnt, lSpacesEnt,     # ^
+                                                  strDelimiter, strFormat,        # ^
+                                                  nMaxChrEnt) + '\n\n'            # ^
+
+        iStartEntry = iStartEntry + nEntrypLine  # Move forward the start entry
+
+    # Add new line at the end of the output string
+    strMessage = strMessage + '\n'
+    return strMessage
+
+
+# %%#############################################################################
 # Function computes technical parametrers of 1D-array printing
 #################################################################################
-def _getTechnial1Dim(arrA, strFormat, strDelimiter):
+def _1DgetTechnical(arrA, strFormat, strDelimiter):
 
     nEnt = arrA.size    # Get the number of entries in 1D array
 
@@ -531,6 +455,92 @@ def _getTechnial1Dim(arrA, strFormat, strDelimiter):
     # --------------------------------------------------------------------
  
     return (nEnt, bInt, nM, nX, nXl, nC, nD, nMaxChrInd, nMaxChrEnt, nMinChrEnt)
+
+
+# %%#############################################################################
+# Function prints in one line indices of selected entries from an array
+#################################################################################
+def _1DprintIndices(arrA, iStartEntry, nEntries, lSpacesInd, strAddSpaceInd, nD):
+    """
+    Inputs:
+    
+    - 1. **arrA** (*Numpy array*)       Array to be printed
+            
+    - 2. **iStartEntry** (*integer*)    Index of the first entry to be printed
+    
+    - 3. **nEntries** (*integer*)       The number of entries to be printed 
+                                        
+    - 4. **strAddSpaceEnt** (*string*)  Blank spaces before every entry to equalize length of printed entries
+                                        with printed indices of column
+
+    - 5. **nD** (*integer*)             The number of characters in delimiter
+    
+    Output:
+    
+    - 1. **strMessage** (*string*)   String with indices of selected entries of the numpy array 
+    """
+
+    # Get the lowest number of digits in indices of entries
+    if (iStartEntry >= 2):
+        nIndDigL = np.ceil(np.log10(iStartEntry)).astype(int)
+    else:
+        nIndDigL = 1
+
+    strMessage = ''
+    nDigs = nIndDigL   # The current number of digits
+    iThr = 10**nDigs   # Next threshold which changes the number of digits
+    for inxEntry in np.arange(iStartEntry, iStartEntry+nEntries):   # Loop over all entries
+        if inxEntry == iThr:     # Threshold is reached
+            nDigs = nDigs + 1    # The number of digits
+            iThr = iThr * 10     # Threshold
+        strMessage = strMessage + ('%s%s%d:%s') % (strAddSpaceInd, lSpacesInd[nDigs-1], inxEntry, nD * ' ')  # Print the entry
+
+    return strMessage
+
+
+# %%#############################################################################
+# Function prints in one line selected entries from an array 
+#################################################################################
+def _1DprintEntries(arrA, iStartEntry, nEntries, strAddSpaceEnt, lSpaces, strDelimiter, strFormat, nMaxChrEnt):
+    """
+    Inputs:
+
+    - 1. **arrA** (*Numpy array*)       Array to be printed
+
+    - 2. **iStartEntry** (*integer*)    Index of the first entry to be printed
+
+    - 3. **nEntries** (*integer*)       The number of entries to be printed
+
+    - 4. **strAddSpaceEnt** (*string*)  Blank spaces before every entry to equalieze length of printed entries
+                                        with printed indices of column
+
+    - 5. **lSpaces** (*list*)           List with blank spaces used to equalize length of printed entries
+
+    - 6. **strDelimiter** (*string*)    Delimiter printed between the entries
+
+    - 7. **strFormat** (*string*)       Format of printing entires of the array
+                                        Acceptable formats are %d, %f, %.1f, %.2f, %.3f, %.4f, ...
+
+    - 8. **nMaxChrEnt** (*integer*)     The maximum possible number of characters used to print one entry from the array
+
+    Output:
+
+    - 1. **strMessage** (*string*)   String with selected entries of the numpy array
+    """
+    # Create a command which prints a single entry
+    strPrintEntry = '\'%s\' %% (arrA[inxEntr])' % (strFormat)
+
+    strMessage = ''
+    # Loop over all entries
+    for inxEntr in np.arange(iStartEntry, iStartEntry+nEntries):
+        strEntry = eval(strPrintEntry)    # Create the current entry
+        nChrEntry = len(strEntry)         # The number of characters in the current entry
+        nSpace = nMaxChrEnt - nChrEntry   # The lenght of a space which must be added
+        strMessage = strMessage + ('%s%s%s%s') % (strAddSpaceEnt, lSpaces[nSpace], strEntry, strDelimiter)  # Print the entry
+
+    return strMessage
+
+
 
 
 # %%#############################################################################
