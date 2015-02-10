@@ -29,10 +29,11 @@ import numpy as np
 
 
 # %%#############################################################################
-# Function prints 1D or 2D numpy array to a string variable
-#################################################################################
 def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='   ', iMaxCols=4096, bVert1D=1, bPrintHeader=0):
     """
+    Function prints 1D or 2D numpy array to a string variable
+
+
     This is the function which prints a Numpy array to a string variable.
     Take a look on files: 'report_1Darray_example' and 'report_2Darray_example' for
     examples of usage.         
@@ -84,10 +85,11 @@ def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='  
 
 
 # %%#############################################################################
-# Function prints a header before a Numpy array is printed 
-#################################################################################
 def _printHeader(arrA, strArrayName, bPrintHeader):
     """
+    Function prints a header before a Numpy array is printed 
+
+
     Inputs:
     
     - 1. **arrA** (*Numpy array*)    Array to be printed
@@ -125,10 +127,11 @@ def _printHeader(arrA, strArrayName, bPrintHeader):
 
 
 # %%#############################################################################
-# Function decodes the string with printing format
-#################################################################################
 def _decodeString(strFormat):
     """
+    Function decodes the string with printing format
+
+
     Inputs:
                     
     - 1 **strFormat** (*string*)     Format of printing entires of the array
@@ -215,10 +218,11 @@ def _decodeStringErr(strFormat):
 
 
 # %%#############################################################################
-# Function prints 1D numpy array vertically
-#################################################################################
 def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
     """
+    Function prints 1D numpy array vertically
+
+
     Inputs:
     
     - 1. **arrA** (*Numpy array*)     Array to be printed
@@ -286,10 +290,11 @@ def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
 
 
 # %%#############################################################################
-# Function prints 1D numpy array horizontally
-#################################################################################
 def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, bPrintHeader):
     """
+    Function prints 1D numpy array horizontally
+
+
     Inputs:
     
     - 1. **arrA** (*Numpy array*)     Array to be printed
@@ -365,10 +370,10 @@ def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCol
 
 
 # %%#############################################################################
-# Function computes technical parametrers of 1D array printing
-#################################################################################
 def _1DgetTechnical(arrA, strFormat, strDelimiter):
     """
+    Function computes technical parametrers of 1D array printing
+
 
     Inputs:
     
@@ -437,10 +442,11 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
 
 
 # %%#############################################################################
-# Function creates printing equalization spaces for 1D array printing
-#################################################################################
 def _1DcreateEqSpaces(nMaxChrInd, nMaxChrEnt, nMinChrEnt):
     """
+    Function creates printing equalization spaces for 1D array printing
+
+
     Inputs:
     
     - 1. **nMaxChrInd** (*int*)   The maximum number of characters in indices of the array
@@ -491,10 +497,11 @@ def _1DcreateEqSpaces(nMaxChrInd, nMaxChrEnt, nMinChrEnt):
 
 
 # %%#############################################################################
-# Function computes the line printing parameters for 1D array printing
-#################################################################################
 def _1DgetLineParam(iMaxCols, nEnt, nD, nMaxChrEnt,  strAddSpaceEnt):
     """
+    Function computes the line printing parameters for 1D array printing
+
+
     Inputs:
     
     - 1. **iMaxCols** (*int*)        The maximum number of text columns used ot print a single row
@@ -538,10 +545,11 @@ def _1DgetLineParam(iMaxCols, nEnt, nD, nMaxChrEnt,  strAddSpaceEnt):
 
 
 # %%#############################################################################
-# Function prints in one line indices of selected entries from a 1D array 
-#################################################################################
 def _1DprintIndices(arrA, iStartEntry, nEntries, lSpacesInd, strAddSpaceInd, nD):
     """
+    Function prints in one line indices of selected entries from a 1D array 
+
+
     Inputs:
     
     - 1. **arrA** (*Numpy array*)       Array to be printed
@@ -581,10 +589,11 @@ def _1DprintIndices(arrA, iStartEntry, nEntries, lSpacesInd, strAddSpaceInd, nD)
 
 
 # %%#############################################################################
-# Function prints in one line selected entries from a 1D array
-#################################################################################
 def _1DprintEntries(arrA, iStartEntry, nEntries, strAddSpaceEnt, lSpaces, strDelimiter, strFormat, nMaxChrEnt):
     """
+    Function prints in one line selected entries from a 1D array
+
+
     Inputs:
 
     - 1. **arrA** (*Numpy array*)       Array to be printed
@@ -624,10 +633,11 @@ def _1DprintEntries(arrA, iStartEntry, nEntries, strAddSpaceEnt, lSpaces, strDel
 
 
 # %%#############################################################################
-# Function prints 2D numpy array 
-#################################################################################
 def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, bPrintHeader):
     """
+     Function prints 2D numpy array 
+
+
     Inputs:
     
     - 1. **arrA** (*Numpy array*)     Array to be printed
@@ -716,10 +726,10 @@ def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, b
 
 
 # %%#############################################################################
-# Function computes technical parameters of 2D-array printing
-#################################################################################
 def _2DgetTechnical(arrA, strFormat, strDelimiter):
     """
+    Function computes technical parameters of 2D-array printing
+
 
     Inputs:
     
@@ -797,10 +807,10 @@ def _2DgetTechnical(arrA, strFormat, strDelimiter):
 
 
 # %%#############################################################################
-# Function creates printing equalization spaces for 2D array printing
-#################################################################################
 def _2DcreateEqSpaces(nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt):
     """
+    Function creates printing equalization spaces for 2D array printing
+
 
     Inputs:
     
@@ -863,10 +873,11 @@ def _2DcreateEqSpaces(nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt):
 
 
 # %%#############################################################################
-# Function computes the line printing parameters for 2D printing
-#################################################################################
 def _2DgetLineParam(iMaxCols, nCols, nD, nMaxChrEnt, nMaxChrIndR, strAddSpaceEnt):
     """
+    Function computes the line printing parameters for 2D printing
+
+
     Inputs:
     
     - 1. **iMaxCols** (*int*)           The maximum number of text columns used ot print a single row
@@ -914,10 +925,11 @@ def _2DgetLineParam(iMaxCols, nCols, nD, nMaxChrEnt, nMaxChrIndR, strAddSpaceEnt
 
 
 # %%#############################################################################
-# Function prints indices of columns for 2D array
-#################################################################################
 def _2DprintColumns(iStartCol, nEntries, strAddSpaceIndC, lSpacesIndC, nMaxChrIndR, nD):
     """
+    Function prints indices of columns for 2D array
+
+
     Inputs:
     
     - 1. **iStartCol** (*int*)            Index of the first columns to be printed
@@ -960,10 +972,11 @@ def _2DprintColumns(iStartCol, nEntries, strAddSpaceIndC, lSpacesIndC, nMaxChrIn
     
 
 # %%#############################################################################
-# Function prints one index of a row 
-#################################################################################
 def _2DprintInxRow(inxRow, lSpacesIndR):
     """
+    Function prints one index of a row 
+
+
     Inputs:
     
     - 1. **inxCol** (*int*)            Index of the row to be printed
@@ -985,10 +998,11 @@ def _2DprintInxRow(inxRow, lSpacesIndR):
     
 
 # %%#############################################################################
-# Function prints entries from the current row for a 2D array
-#################################################################################
 def _2DprintRow(arrA, inxRow, iStartCol, nEntries, nMaxChrEnt, strFormat, strAddSpaceEnt, lSpacesEnt, strDelimiter):
     """
+    Function prints entries from the current row for a 2D array
+
+
     Inputs:
     
     - 1. **arrA** (*Numpy array*)           Array to be printed
