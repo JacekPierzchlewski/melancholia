@@ -90,7 +90,7 @@ def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='  
 
     Input:
 
-    - 1. **arrA** (*Numpy array*)    Array to be printed
+    - 1 **arrA** (*Numpy array*)     Array to be printed
 
     - 2 **strArrayName** (*string*)  Name of the array [optional, default = '']
 
@@ -123,7 +123,7 @@ def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='  
 
     Output:
 
-    - 1. **strMessage** (*string*)   String with entries of the numpy array
+    - 1 **strMessage** (*string*)    String with entries of the numpy array
     """
 
     # Check if the input array has 1 or 2 dimensions
@@ -163,7 +163,7 @@ def _printHeader(arrA, strArrayName, bPrintHeader):
 
     Output:
 
-    - 1. **strMessage** (*string*)   String with the header, of an empty string if the header is switched off
+    - 1 **strMessage** (*string*)    String with the header, of an empty string if the header is switched off
 
     """
 
@@ -202,9 +202,9 @@ def _decodeString(strFormat):
 
     Output:
 
-    - 1. **bIntegerOnly** (*number*)      If 1 - only integers are printed (no mantissa)
+    - 1 **bIntegerOnly** (*number*)      If 1 - only integers are printed (no mantissa)
 
-    - 2. **iNDigitsAfterDot** (*int*)     The number of digits printed after dot
+    - 2 **iNDigitsAfterDot** (*int*)     The number of digits printed after dot
 
     """
 
@@ -289,7 +289,7 @@ def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
 
     Input:
 
-    - 1. **arrA** (*Numpy array*)     Array to be printed
+    - 1 **arrA** (*Numpy array*)      Array to be printed
 
     - 2 **strArrayName** (*string*)   Name of the array
 
@@ -303,7 +303,7 @@ def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
 
     Output:
 
-    - 1. **strMessage** (*string*)   String with entries of the numpy array printed vertically
+    - 1 **strMessage** (*string*)   String with entries of the numpy array printed vertically
 
     """
 
@@ -361,7 +361,7 @@ def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCol
 
     Input:
 
-    - 1. **arrA** (*Numpy array*)     Array to be printed
+    - 1 **arrA** (*Numpy array*)      Array to be printed
 
     - 2 **strArrayName** (*string*)   Name of the array
 
@@ -384,7 +384,7 @@ def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCol
 
     Output:
 
-    - 1. **strMessage** (*string*)   String with entries of the numpy array
+    - 1 **strMessage** (*string*)   String with entries of the numpy array
     """
 
     # Get technial parameters of 1D array printing
@@ -448,7 +448,7 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
 
     Input:
 
-    - 1. **arrA** (*Numpy array*)     Array to be printed
+    - 1 **arrA** (*Numpy array*)      Array to be printed
 
     - 2 **strFormat** (*string*)      Format of printing entires of the array
 
@@ -456,15 +456,15 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
 
     Output:
 
-    - 1. **nEnt** (*int*)         The number of entries in the array
+    - 1 **nEnt** (*int*)         The number of entries in the array
 
-    - 2. **nD** (*int*)           The number of characters in the delimter
+    - 2 **nD** (*int*)           The number of characters in the delimter
 
-    - 3. **nMaxChrInd** (*int*)   The maximum number of characters in indices of the array
+    - 3 **nMaxChrInd** (*int*)   The maximum number of characters in indices of the array
 
-    - 4. **nMaxChrEnt** (*int*)   The maximum number of characters in entries of the array
+    - 4 **nMaxChrEnt** (*int*)   The maximum number of characters in entries of the array
 
-    - 5. **nMinChrEnt** (*int*)   The minimum number of characters in entries of the array
+    - 5 **nMinChrEnt** (*int*)   The minimum number of characters in entries of the array
 
     """
     nEnt = arrA.size    # Get the number of entries in 1D array
@@ -519,21 +519,21 @@ def _1DcreateEqSpaces(nMaxChrInd, nMaxChrEnt, nMinChrEnt):
 
     Input:
 
-    - 1. **nMaxChrInd** (*int*)   The maximum number of characters in indices of the array
+    - 1 **nMaxChrInd** (*int*)   The maximum number of characters in indices of the array
 
-    - 2. **nMaxChrEnt** (*int*)   The maximum number of characters in entries of the array
+    - 2 **nMaxChrEnt** (*int*)   The maximum number of characters in entries of the array
 
-    - 3. **nMinChrEnt** (*int*)   The minimum number of characters in entries of the array
+    - 3 **nMinChrEnt** (*int*)   The minimum number of characters in entries of the array
 
     Output:
 
-    - 1. **lSpacesInd** (*list*)  A list with spaces which should be added to indices of an entry
+    - 1 **lSpacesInd** (*list*)  A list with spaces which should be added to indices of an entry
 
-    - 2. **lSpacesEnt** (*list*)  A list with spaces which should be added to entries
+    - 2 **lSpacesEnt** (*list*)  A list with spaces which should be added to entries
 
-    - 3. **strAddSpaceInd** (*string*)  A string with an additional space added to indices of entries
+    - 3 **strAddSpaceInd** (*string*)  A string with an additional space added to indices of entries
 
-    - 4. **strAddSpaceEnt** (*string*)  A string with an additional space added to entries
+    - 4 **strAddSpaceEnt** (*string*)  A string with an additional space added to entries
 
     """
     # Create additional spaces for indices of entries and the entries
@@ -573,25 +573,25 @@ def _1DgetLineParam(iMaxCols, iMaxEntr, nEnt, nD, nMaxChrEnt, strAddSpaceEnt):
 
     Input:
 
-    - 1. **iMaxCols** (*int*)        The maximum number of text columns used ot print a single row
+    - 1 **iMaxCols** (*int*)        The maximum number of text columns used ot print a single row
 
-    - 2. **iMaxEntr** (*int*)        The maximum number of entries printed in a single line
+    - 2 **iMaxEntr** (*int*)        The maximum number of entries printed in a single line
 
-    - 3. **nEnt** (*int*)            The number of entries in the array
+    - 3 **nEnt** (*int*)            The number of entries in the array
 
-    - 4. **nD** (*int*)              The number of characters in the delimter
+    - 4 **nD** (*int*)              The number of characters in the delimter
 
-    - 5. **nMaxChrEnt** (*int*)      The maximum number of characters in entries of the array
+    - 5 **nMaxChrEnt** (*int*)      The maximum number of characters in entries of the array
 
-    - 6. **strAddSpaceEnt** (*int*)  A string with an additional space added to entries
+    - 6 **strAddSpaceEnt** (*int*)  A string with an additional space added to entries
 
     Output:
 
-    - 1. **nLines** (*int*)           The number of lines used to print all the entries from the array
+    - 1 **nLines** (*int*)           The number of lines used to print all the entries from the array
 
-    - 2. **nEntrypLine** (*int*)      The number of entries in one line
+    - 2 **nEntrypLine** (*int*)      The number of entries in one line
 
-    - 3. **nEntrypLastLine** (*int*)  The number of entries in the last line
+    - 3 **nEntrypLastLine** (*int*)  The number of entries in the last line
 
     """
 
@@ -624,22 +624,22 @@ def _1DprintIndices(arrA, iStartEntry, nEntries, lSpacesInd, strAddSpaceInd, nD)
 
     Input:
 
-    - 1. **arrA** (*Numpy array*)       Array to be printed
+    - 1 **arrA** (*Numpy array*)       Array to be printed
 
-    - 2. **iStartEntry** (*int*)        Index of the first entry to be printed
+    - 2 **iStartEntry** (*int*)        Index of the first entry to be printed
 
-    - 3. **nEntries** (*int*)           The number of entries to be printed
+    - 3 **nEntries** (*int*)           The number of entries to be printed
 
-    - 4. **lSpacesInd** (*list*)        A list with spaces which should be added to indices of an entry
+    - 4 **lSpacesInd** (*list*)        A list with spaces which should be added to indices of an entry
 
-    - 5. **strAddSpaceEnt** (*string*)  Blank spaces before every entry to equalize length of printed entries
-                                        with printed indices of column
+    - 5 **strAddSpaceEnt** (*string*)  Blank spaces before every entry to equalize length of printed entries
+                                       with printed indices of column
 
-    - 6. **nD** (*integer*)             The number of characters in delimiter
+    - 6 **nD** (*integer*)             The number of characters in delimiter
 
     Output:
 
-    - 1. **strMessage** (*string*)   String with indices of entries
+    - 1 **strMessage** (*string*)   String with indices of entries
     """
 
     # Get the lowest number of digits in indices of entries
@@ -668,23 +668,23 @@ def _1DprintEntries(arrA, iStartEntry, nEntries, strAddSpaceEnt, lSpaces, strDel
 
     Input:
 
-    - 1. **arrA** (*Numpy array*)       Array to be printed
+    - 1 **arrA** (*Numpy array*)        Array to be printed
 
-    - 2. **iStartEntry** (*int*)        Index of the first entry to be printed
+    - 2 **iStartEntry** (*int*)         Index of the first entry to be printed
 
-    - 3. **nEntries** (*int*)           The number of entries to be printed
+    - 3 **nEntries** (*int*)            The number of entries to be printed
 
-    - 4. **strAddSpaceEnt** (*string*)  Blank spaces before every entry to equalieze length of printed entries
+    - 4 **strAddSpaceEnt** (*string*)   Blank spaces before every entry to equalieze length of printed entries
                                         with printed indices of column
 
-    - 5. **lSpaces** (*list*)           List with blank spaces used to equalize length of printed entries
+    - 5 **lSpaces** (*list*)            List with blank spaces used to equalize length of printed entries
 
-    - 6. **strDelimiter** (*string*)    Delimiter printed between the entries
+    - 6 **strDelimiter** (*string*)     Delimiter printed between the entries
 
-    - 7. **strFormat** (*string*)       Format of printing entires of the array
+    - 7 **strFormat** (*string*)        Format of printing entires of the array
                                         Acceptable formats are %d, %f, %.1f, %.2f, %.3f, %.4f, ...
 
-    - 8. **nMaxChrEnt** (*integer*)     The maximum possible number of characters used to print one entry from the array
+    - 8 **nMaxChrEnt** (*integer*)      The maximum possible number of characters used to print one entry from the array
 
     Output:
 
@@ -712,7 +712,7 @@ def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, i
 
     Input:
 
-    - 1. **arrA** (*Numpy array*)     Array to be printed
+    - 1 **arrA** (*Numpy array*)      Array to be printed
 
     - 2 **strArrayName** (*string*)   Name of the array
 
@@ -738,7 +738,7 @@ def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, i
 
     Output:
 
-    - 1. **strMessage** (*string*)   String with entries of the numpy array printed vertically
+    - 1 **strMessage** (*string*)   String with entries of the numpy array printed vertically
 
     """
 
@@ -820,7 +820,7 @@ def _2DgetTechnical(arrA, strFormat, strDelimiter):
 
     Input:
 
-    - 1. **arrA** (*Numpy array*)     Array to be printed
+    - 1 **arrA** (*Numpy array*)      Array to be printed
 
     - 2 **strFormat** (*string*)      Format of printing entires of the array
 
@@ -828,19 +828,19 @@ def _2DgetTechnical(arrA, strFormat, strDelimiter):
 
     Output:
 
-    - 1. **nRows** (*int*)         The number of rows in the array
+    - 1 **nRows** (*int*)         The number of rows in the array
 
-    - 2. **nCols** (*int*)         The number of columns in the array
+    - 2 **nCols** (*int*)         The number of columns in the array
 
-    - 3. **nD** (*int*)            The number of characters in the delimter
+    - 3 **nD** (*int*)            The number of characters in the delimter
 
-    - 4. **nMaxChrEnt** (*int*)    The maximum number of characters in entries of the array
+    - 4 **nMaxChrEnt** (*int*)    The maximum number of characters in entries of the array
 
-    - 5. **nMaxChrIndR** (*int*)   The maximum number of characters in indices of rows of the array
+    - 5 **nMaxChrIndR** (*int*)   The maximum number of characters in indices of rows of the array
 
-    - 6. **nMaxChrIndC** (*int*)   The maximum number of characters in indices of columns of the array
+    - 6 **nMaxChrIndC** (*int*)   The maximum number of characters in indices of columns of the array
 
-    - 7. **nMinChrEnt** (*int*)    The minimum number of characters in entries of the array
+    - 7 **nMinChrEnt** (*int*)    The minimum number of characters in entries of the array
 
     """
 
@@ -900,25 +900,25 @@ def _2DcreateEqSpaces(nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt):
 
     Input:
 
-    - 1. **nMaxChrEnt** (*int*)    The maximum number of characters in entries of the array
+    - 1 **nMaxChrEnt** (*int*)    The maximum number of characters in entries of the array
 
-    - 2. **nMaxChrIndR** (*int*)   The maximum number of characters in indices of rows of the array
+    - 2 **nMaxChrIndR** (*int*)   The maximum number of characters in indices of rows of the array
 
-    - 3. **nMaxChrIndC** (*int*)   The maximum number of characters in indices of columns of the array
+    - 3 **nMaxChrIndC** (*int*)   The maximum number of characters in indices of columns of the array
 
-    - 4. **nMinChrEnt** (*int*)    The minimum number of characters in entries of the array
+    - 4 **nMinChrEnt** (*int*)    The minimum number of characters in entries of the array
 
     Output:
 
-    - 1. **lSpacesIndC** (*list*)          A list with spaces which should be added to indices of columns
+    - 1 **lSpacesIndC** (*list*)          A list with spaces which should be added to indices of columns
 
-    - 2. **lSpacesIndR** (*list*)          A list with spaces which should be added to indices of rows
+    - 2 **lSpacesIndR** (*list*)          A list with spaces which should be added to indices of rows
 
-    - 3. **lSpacesEnt** (*list*)           A list with spaces which should be added to entries
+    - 3 **lSpacesEnt** (*list*)           A list with spaces which should be added to entries
 
-    - 4. **strAddSpaceIndC** (*string*)    A string with an additional space added to indices of entries
+    - 4 **strAddSpaceIndC** (*string*)    A string with an additional space added to indices of entries
 
-    - 5. **strAddSpaceEnt** (*string*)     A string with an additional space added to entries
+    - 5 **strAddSpaceEnt** (*string*)     A string with an additional space added to entries
 
     """
     # Create additional spaces for indices of columns and the entries
@@ -965,27 +965,27 @@ def _2DgetLineParam(iMaxCols, iMaxEntr, nCols, nD, nMaxChrEnt, nMaxChrIndR, strA
 
     Input:
 
-    - 1. **iMaxCols** (*int*)           The maximum number of text columns used ot print a single row
+    - 1 **iMaxCols** (*int*)           The maximum number of text columns used ot print a single row
 
-    - 2. **iMaxEntr** (*int*)           The maximum number of entries printed in a single line
+    - 2 **iMaxEntr** (*int*)           The maximum number of entries printed in a single line
 
-    - 3. **nCols** (*int*)              The number of columns in the array
+    - 3 **nCols** (*int*)              The number of columns in the array
 
-    - 4. **nD** (*int*)                 The number of characters in the delimter
+    - 4 **nD** (*int*)                 The number of characters in the delimter
 
-    - 5. **nMaxChrEnt** (*int*)         The maximum number of characters in entries of the array
+    - 5 **nMaxChrEnt** (*int*)         The maximum number of characters in entries of the array
 
-    - 6. **nMaxChrIndR** (*int*)        The maximum number of characters in indices of row
+    - 6 **nMaxChrIndR** (*int*)        The maximum number of characters in indices of row
 
-    - 7. **strAddSpaceEnt** (*string*)  A string with an additional space added to entries
+    - 7 **strAddSpaceEnt** (*string*)  A string with an additional space added to entries
 
     Output:
 
-    - 1. **nLines** (*int*)           The number of lines used to print all the entries from the array
+    - 1 **nLines** (*int*)           The number of lines used to print all the entries from the array
 
-    - 2. **nEntrypLine** (*int*)      The number of entries in one line
+    - 2 **nEntrypLine** (*int*)      The number of entries in one line
 
-    - 3. **nEntrypLastLine** (*int*)  The number of entries in the last line
+    - 3 **nEntrypLastLine** (*int*)  The number of entries in the last line
 
     """
 
@@ -1020,21 +1020,21 @@ def _2DprintColumns(iStartCol, nEntries, strAddSpaceIndC, lSpacesIndC, nMaxChrIn
 
     Input:
 
-    - 1. **iStartCol** (*int*)            Index of the first columns to be printed
+    - 1 **iStartCol** (*int*)            Index of the first columns to be printed
 
-    - 2. **nEntries** (*int*)             The number of entries for which the indices of columns will be printed
+    - 2 **nEntries** (*int*)             The number of entries for which the indices of columns will be printed
 
-    - 3. **strAddSpaceIndC** (*string*)   A string with an additional space added to indices of entries
+    - 3 **strAddSpaceIndC** (*string*)   A string with an additional space added to indices of entries
 
-    - 4. **lSpacesIndC** (*list*)         A list with spaces which should be added to indices of columns
+    - 4 **lSpacesIndC** (*list*)         A list with spaces which should be added to indices of columns
 
-    - 5. **nMaxChrIndR** (*int*)          A list with spaces which should be added to indices of rows
+    - 5 **nMaxChrIndR** (*int*)          A list with spaces which should be added to indices of rows
 
-    - 5. **nD** (*int*)                   The number of characters in the delimter
+    - 6 **nD** (*int*)                   The number of characters in the delimter
 
     Output:
 
-    - 1. **strMessage** (*string*)   The string with printed requested indices of columns
+    - . **strMessage** (*string*)   The string with printed requested indices of columns
 
     """
 
@@ -1067,13 +1067,13 @@ def _2DprintInxRow(inxRow, lSpacesIndR):
 
     Input:
 
-    - 1. **inxCol** (*int*)            Index of the row to be printed
+    - 1 **inxCol** (*int*)            Index of the row to be printed
 
-    - 2. **lSpacesIndR** (*list*)      A list with spaces which should be added to indices of rows
+    - 2 **lSpacesIndR** (*list*)      A list with spaces which should be added to indices of rows
 
     Output:
 
-    - 1. **strMessage** (*string*)   The string with printed requested index of a row
+    - 1 **strMessage** (*string*)   The string with printed requested index of a row
 
     """
 
@@ -1092,27 +1092,27 @@ def _2DprintRow(arrA, inxRow, iStartCol, nEntries, nMaxChrEnt, strFormat, strAdd
 
     Input:
 
-    - 1. **arrA** (*Numpy array*)           Array to be printed
+    - 1 **arrA** (*Numpy array*)           Array to be printed
 
-    - 2. **inxRow** (*int*)                 Index of the rows from which the entries are printed
+    - 2 **inxRow** (*int*)                 Index of the rows from which the entries are printed
 
-    - 3. **iStartCol** (*int*)              Index of the first column from which the entries are printed
+    - 3 **iStartCol** (*int*)              Index of the first column from which the entries are printed
 
-    - 4. **nEntries** (*int*)               The number of entries to be printed
+    - 4 **nEntries** (*int*)               The number of entries to be printed
 
-    - 5. **nMaxChrEnt** (*int*)             The maximum number of characters in entries of the array
+    - 5 **nMaxChrEnt** (*int*)             The maximum number of characters in entries of the array
 
-    - 6. **strFormat** (*string*)           Format of printing entries of the array
+    - 6 **strFormat** (*string*)           Format of printing entries of the array
 
-    - 7. **strAddSpaceEnt** (*string*)      A string with an additional space added to entries
+    - 7 **strAddSpaceEnt** (*string*)      A string with an additional space added to entries
 
-    - 8. **lSpacesEnt** (*list*)            A list with spaces which should be added to entries
+    - 8 **lSpacesEnt** (*list*)            A list with spaces which should be added to entries
 
-    - 9. **strDelimiter** (*string*)        Delimiter printed between the entries of the array
+    - 9 **strDelimiter** (*string*)        Delimiter printed between the entries of the array
 
     Output:
 
-    - 1. **strMessage** (*string*)   The string with printed requested entries
+    - 1 **strMessage** (*string*)   The string with printed requested entries
 
     """
 
