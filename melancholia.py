@@ -87,7 +87,8 @@ def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='  
     Take a look on files: 'report_1Darray_example' and 'report_2Darray_example' for
     examples of usage.
 
-    Inputs:
+
+    Input:
 
     - 1. **arrA** (*Numpy array*)    Array to be printed
 
@@ -146,7 +147,7 @@ def _printHeader(arrA, strArrayName, bPrintHeader):
     Function prints a header before a Numpy array is printed
 
 
-    Inputs:
+    Input:
 
     - 1. **arrA** (*Numpy array*)    Array to be printed
 
@@ -154,6 +155,7 @@ def _printHeader(arrA, strArrayName, bPrintHeader):
 
     - 3 **bPrintHeader** (*int*)     Flag  which switched on header printing
                                      1 - switch on, 0 - switch off
+
     Output:
 
     - 1. **strMessage** (*string*)   String with the header, of an empty string if the header is switched off
@@ -188,7 +190,7 @@ def _decodeString(strFormat):
     Function decodes the string with printing format
 
 
-    Inputs:
+    Input:
 
     - 1 **strFormat** (*string*)     Format of printing entires of the array
                                      Acceptable formats are %d, %f, %.1f, %.2f, %.3f, %.4f, ...
@@ -262,7 +264,7 @@ def _decodeString(strFormat):
 # Print error message, if the given format is incorrect
 def _decodeStringErr(strFormat):
     """
-    Inputs:
+    Input:
 
     - 1 **strFormat** (*string*)     Format of printing entires of the array
 
@@ -280,7 +282,7 @@ def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
     Function prints 1D numpy array vertically
 
 
-    Inputs:
+    Input:
 
     - 1. **arrA** (*Numpy array*)     Array to be printed
 
@@ -352,7 +354,7 @@ def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCol
     Function prints 1D numpy array horizontally
 
 
-    Inputs:
+    Input:
 
     - 1. **arrA** (*Numpy array*)     Array to be printed
 
@@ -437,14 +439,13 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
     Function computes technical parametrers of 1D array printing
 
 
-    Inputs:
+    Input:
 
     - 1. **arrA** (*Numpy array*)     Array to be printed
 
     - 2 **strFormat** (*string*)      Format of printing entires of the array
 
     - 3 **strDelimiter** (*string*)   Delimiter printed between the entries of the array
-
 
     Output:
 
@@ -509,14 +510,13 @@ def _1DcreateEqSpaces(nMaxChrInd, nMaxChrEnt, nMinChrEnt):
     Function creates printing equalization spaces for 1D array printing
 
 
-    Inputs:
+    Input:
 
     - 1. **nMaxChrInd** (*int*)   The maximum number of characters in indices of the array
 
     - 2. **nMaxChrEnt** (*int*)   The maximum number of characters in entries of the array
 
     - 3. **nMinChrEnt** (*int*)   The minimum number of characters in entries of the array
-
 
     Output:
 
@@ -564,7 +564,7 @@ def _1DgetLineParam(iMaxCols, nEnt, nD, nMaxChrEnt, strAddSpaceEnt):
     Function computes the line printing parameters for 1D array printing
 
 
-    Inputs:
+    Input:
 
     - 1. **iMaxCols** (*int*)        The maximum number of text columns used ot print a single row
 
@@ -611,7 +611,7 @@ def _1DprintIndices(arrA, iStartEntry, nEntries, lSpacesInd, strAddSpaceInd, nD)
     Function prints in one line indices of selected entries from a 1D array
 
 
-    Inputs:
+    Input:
 
     - 1. **arrA** (*Numpy array*)       Array to be printed
 
@@ -655,7 +655,7 @@ def _1DprintEntries(arrA, iStartEntry, nEntries, strAddSpaceEnt, lSpaces, strDel
     Function prints in one line selected entries from a 1D array
 
 
-    Inputs:
+    Input:
 
     - 1. **arrA** (*Numpy array*)       Array to be printed
 
@@ -699,7 +699,7 @@ def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, b
      Function prints 2D numpy array
 
 
-    Inputs:
+    Input:
 
     - 1. **arrA** (*Numpy array*)     Array to be printed
 
@@ -805,14 +805,13 @@ def _2DgetTechnical(arrA, strFormat, strDelimiter):
     Function computes technical parameters of 2D-array printing
 
 
-    Inputs:
+    Input:
 
     - 1. **arrA** (*Numpy array*)     Array to be printed
 
     - 2 **strFormat** (*string*)      Format of printing entires of the array
 
     - 3 **strDelimiter** (*string*)   Delimiter printed between the entries of the array
-
 
     Output:
 
@@ -886,7 +885,7 @@ def _2DcreateEqSpaces(nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt):
     Function creates printing equalization spaces for 2D array printing
 
 
-    Inputs:
+    Input:
 
     - 1. **nMaxChrEnt** (*int*)    The maximum number of characters in entries of the array
 
@@ -895,7 +894,6 @@ def _2DcreateEqSpaces(nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt):
     - 3. **nMaxChrIndC** (*int*)   The maximum number of characters in indices of columns of the array
 
     - 4. **nMinChrEnt** (*int*)    The minimum number of characters in entries of the array
-
 
     Output:
 
@@ -952,7 +950,7 @@ def _2DgetLineParam(iMaxCols, nCols, nD, nMaxChrEnt, nMaxChrIndR, strAddSpaceEnt
     Function computes the line printing parameters for 2D printing
 
 
-    Inputs:
+    Input:
 
     - 1. **iMaxCols** (*int*)           The maximum number of text columns used ot print a single row
 
@@ -1003,7 +1001,7 @@ def _2DprintColumns(iStartCol, nEntries, strAddSpaceIndC, lSpacesIndC, nMaxChrIn
     Function prints indices of columns for 2D array
 
 
-    Inputs:
+    Input:
 
     - 1. **iStartCol** (*int*)            Index of the first columns to be printed
 
@@ -1050,7 +1048,7 @@ def _2DprintInxRow(inxRow, lSpacesIndR):
     Function prints one index of a row of a 2D array
 
 
-    Inputs:
+    Input:
 
     - 1. **inxCol** (*int*)            Index of the row to be printed
 
@@ -1075,7 +1073,7 @@ def _2DprintRow(arrA, inxRow, iStartCol, nEntries, nMaxChrEnt, strFormat, strAdd
     Function prints selected entries from the current row for a 2D array
 
 
-    Inputs:
+    Input:
 
     - 1. **arrA** (*Numpy array*)           Array to be printed
 
@@ -1094,7 +1092,6 @@ def _2DprintRow(arrA, inxRow, iStartCol, nEntries, nMaxChrEnt, strFormat, strAdd
     - 8. **lSpacesEnt** (*list*)            A list with spaces which should be added to entries
 
     - 9. **strDelimiter** (*string*)        Delimiter printed between the entries of the array
-
 
     Output:
 
