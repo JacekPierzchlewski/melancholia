@@ -3,7 +3,55 @@ This module prints Numpy arrays in a human readable way. |br|
 
 
 *List of functions*:
-    
+
+        Functions which should be accessed by user:
+
+            A - printA:  Function prints 1D or 2D numpy array to a string variable
+
+        Internal functions:
+
+                general usage:
+
+                    - _printHeader:       function prints a header before a Numpy array is printed
+
+                    - _decodeString:      function decodes the string with printing format
+
+                    - _decodeStringErr:   function prints error message, if the given format is incorrect
+
+
+                1D array printing:
+
+                    - _1DarrayVert:         function prints 1D numpy array vertically
+
+                    - _1DarrayHori:         function prints 1D numpy array horizontally
+
+                    - _1DgetTechnical:      function computes technical parametrers of 1D array printing
+
+                    - _1DcreateEqSpaces:    function creates printing equalization spaces for 1D array printing
+
+                    - _1DgetLineParam:      function computes the line printing parameters for 1D array printing
+
+                    - _1DprintIndices:      function prints in one line indices of selected entries from a 1D array
+
+                    - _1DprintEntries:      function prints in one line selected entries from a 1D array
+
+
+                2D array printing:
+
+                    - _2Darray:             function prints 2D numpy array
+
+                    - _2DgetTechnical:      function computes technical parameters of 2D-array printing
+
+                    - _2DcreateEqSpaces:    function creates printing equalization spaces for 2D array printing
+
+                    - _2DgetLineParam:      function computes the line printing parameters for 2D printing
+
+                    - _2DprintColumns:      function prints indices of columns for 2D array
+
+                    - _2DprintInxRow:       function prints one index of a row of a 2D array
+
+                    - _2DprintRow:          function prints selected entries from the current row for a 2D array
+
 
 Copyright (C) <2014-2015>  Jacek Pierzchlewski
                            jap [at] es dot aau dot dk
@@ -36,24 +84,24 @@ def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='  
 
     This is the function which prints a Numpy array to a string variable.
     Take a look on files: 'report_1Darray_example' and 'report_2Darray_example' for
-    examples of usage.         
-         
+    examples of usage.
+
     Inputs:
-    
+
     - 1. **arrA** (*Numpy array*)    Array to be printed
-            
+
     - 2 **strArrayName** (*string*)  Name of the array [optional, default = '']
-    
+
     - 3 **strFormat** (*string*)     Format of printing entires of the array [optional, default = '%f']
                                      Acceptable formats are %d, %f, %.1f, %.2f, %.3f, %.4f, ...
 
-    - 4 **iRowBrake** (*int*)        The number of rows before the column indices are printed again 
-                                     [optional, default = 20]         
-    
-    - 5 **strDelimiter** (*string*)  Delimiter printed between the entries of the array  
+    - 4 **iRowBrake** (*int*)        The number of rows before the column indices are printed again
+                                     [optional, default = 20]
+
+    - 5 **strDelimiter** (*string*)  Delimiter printed between the entries of the array
                                      [optional, default = '  ' (double space)]
-                                     
-    - 6 **iMaxCols** (*int*)         The maximum number of text columns used ot print a single row 
+
+    - 6 **iMaxCols** (*int*)         The maximum number of text columns used ot print a single row
                                      [optional, default = 4096]
 
     - 7 **bVert1D** (*int*)          Print a 1-dimensional numpy array vertically or horizontally?
@@ -62,13 +110,13 @@ def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='  
     - 8 **bPrintHeader** (*int*)     Add header with array name, dimension and size?
                                      1 - yes add, 0 - do not add [optional, default = 0]
     Output:
-    
+
     - 1. **strMessage** (*string*)   String with entries of the numpy array
     """
 
-    # Check if the input array has 1 or 2 dimensions 
+    # Check if the input array has 1 or 2 dimensions
     if (arrA.ndim == 1):
-        
+
         # For 1 dimensinal array, the array may be printed horizontally or vertically
         if bVert1D == 1:
             strMessage = _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader)
@@ -77,33 +125,33 @@ def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='  
 
     elif (arrA.ndim == 2):
         strMessage = _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, bPrintHeader)
-    # If the array has neither 1 nor 2 dimensions, it is an error    
+    # If the array has neither 1 nor 2 dimensions, it is an error
     else:
         raise ValueError('Numpy array which is to be printed to a file must be of 1- or 2-dimensions!')
-    
+
     return strMessage
 
 
 # %%#############################################################################
 def _printHeader(arrA, strArrayName, bPrintHeader):
     """
-    Function prints a header before a Numpy array is printed 
+    Function prints a header before a Numpy array is printed
 
 
     Inputs:
-    
+
     - 1. **arrA** (*Numpy array*)    Array to be printed
-            
+
     - 2 **strArrayName** (*string*)  Name of the array
-    
+
     - 3 **bPrintHeader** (*int*)     Flag  which switched on header printing
-                                     1 - switch on, 0 - switch off 
+                                     1 - switch on, 0 - switch off
     Output:
- 
-    - 1. **strMessage** (*string*)   String with the header, of an empty string if the header is switched off 
-    
+
+    - 1. **strMessage** (*string*)   String with the header, of an empty string if the header is switched off
+
     """
-    
+
     # If header printing is switched off, return an empty string
     if bPrintHeader == 0:
         return ''
@@ -133,33 +181,33 @@ def _decodeString(strFormat):
 
 
     Inputs:
-                    
+
     - 1 **strFormat** (*string*)     Format of printing entires of the array
                                      Acceptable formats are %d, %f, %.1f, %.2f, %.3f, %.4f, ...
 
     Output:
- 
-    - 1. **bIntegerOnly** (*number*)      If 1 - only integers are printed (no mantissa) 
- 
-    - 2. **iNDigitsAfterDot** (*int*)     The number of digits printed after dot  
-    
+
+    - 1. **bIntegerOnly** (*number*)      If 1 - only integers are printed (no mantissa)
+
+    - 2. **iNDigitsAfterDot** (*int*)     The number of digits printed after dot
+
     """
 
     if len(strFormat) == 0:    # String cannot be empty
         _decodeStringErr(strFormat)
 
     # Check if the first character is '%', otherwise - error
-    if not (strFormat[0] == '%'): 
+    if not (strFormat[0] == '%'):
         _decodeStringErr(strFormat)
 
     # -----------------------------------------------------------------------
     # Check if the second character is 'd', 'f' or '.':
 
     # -----------------------------------------------------------------------
-    # It is 'd':   
-    if (strFormat[1] == 'd'):  
+    # It is 'd':
+    if (strFormat[1] == 'd'):
         if len(strFormat) > 2:  # It must be the last element in the format string
-            _decodeStringErr(strFormat)   
+            _decodeStringErr(strFormat)
         bIntegerOnly = 1
         iNDigitsAfterDot = 0
 
@@ -167,23 +215,23 @@ def _decodeString(strFormat):
     # It is 'f':
     elif (strFormat[1] == 'f'): # It is 'f'
         if len(strFormat) > 2:  # It must be the last element in the format string
-            _decodeStringErr(strFormat)    
+            _decodeStringErr(strFormat)
         bIntegerOnly = 0
         iNDigitsAfterDot = 6
 
     # -----------------------------------------------------------------------
     # It is '.' (dot):
-    elif (strFormat[1] == '.'): #
+    elif (strFormat[1] == '.'):  # It is dot
 
         if len(strFormat) == 2:    # Dot can not be the last digit
             _decodeStringErr(strFormat)
 
         if not ('0' <= strFormat[2] <= '9'):  # There must be a number after the dot
-           _decodeStringErr(strFormat)
-            
+            _decodeStringErr(strFormat)
+
         # Now read all the numbers after dot
         iNDigitsAfterDot = 0   # Number after dot
-        for inxChr in np.arange(2, len(strFormat)-1):  # Loop over all 
+        for inxChr in np.arange(2, len(strFormat)-1):  # Loop over all
             cChr = strFormat[inxChr]
             if not ('0' <= cChr <= '9'):
                 _decodeStringErr(strFormat)
@@ -195,22 +243,23 @@ def _decodeString(strFormat):
         if not ((strFormat[len(strFormat)-1]) == 'f'):
             _decodeStringErr(strFormat)
 
-    # -----------------------------------------------------------------------            
-    # The second character is neither 'd', 'f' nor '.', which is incorrect        
+    # -----------------------------------------------------------------------
+    # The second character is neither 'd', 'f' nor '.', which is incorrect
     else:
         _decodeStringErr(strFormat)
-        
+
     return (bIntegerOnly, iNDigitsAfterDot)
 
-# Print error message, if the given format is incorrect 
+
+# Print error message, if the given format is incorrect
 def _decodeStringErr(strFormat):
     """
     Inputs:
-                    
+
     - 1 **strFormat** (*string*)     Format of printing entires of the array
- 
+
     Output: none
- 
+
     """
     strErr = ('Wrong string with printing format! String > %s < is an incorrect string!') % (strFormat)
     strErr = strErr + (' Correct strings are: %d, %f, %.1f, %.2f, %.3f, %.4f, ...')
@@ -224,16 +273,16 @@ def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
 
 
     Inputs:
-    
+
     - 1. **arrA** (*Numpy array*)     Array to be printed
-            
+
     - 2 **strArrayName** (*string*)   Name of the array
-    
+
     - 3 **strFormat** (*string*)      Format of printing entires of the array [optional, default = '%f']
                                       Acceptable formats are %d, %f, %.1f, %.2f, %.3f, %.4f, ...
 
     - 4 **iRowBrake** (*int*)         The number of rows before the column indices are printed again
-    
+
     - 5 **bPrintHeader** (*int*)      Add header with array name, dimension and size?
                                       1 - yes add, 0 - do not add [optional, default = 0]
 
@@ -259,14 +308,14 @@ def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
     # --------------------------------------------------------------------
     # Printing starts here:
     strMessage = _printHeader(arrA, strArrayName, bPrintHeader) # Add a header, if requested
-                
+
     # Loop over all entries in the array
     nDig = 1;   # The number of digits in the current index of an entry
-    iThr = 10;  # The next threshold which changes the number of digits 
+    iThr = 10;  # The next threshold which changes the number of digits
     strPrintEntry = '\'%s\' %% (arrA[inxEntr])' % (strFormat)  # Create the command which prints a single entry
     for inxEntr in np.arange(nEnt):
 
-        # If the threshold is reached, move forward the number of digits in index of an entry  
+        # If the threshold is reached, move forward the number of digits in index of an entry
         if inxEntr == iThr:
             nDig = nDig + 1
             iThr = iThr * 10  # Move the threshold forward
@@ -280,11 +329,11 @@ def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
         else:
             strBlankMinus = ''
         strMessage = strMessage + strBlankMinus + strEntry + lSpacesEnt[nBlankSpace] + '\n'   # Print the entry
-        
+
         # Add a row brake, if iRowBrake entries where printed without printing a row brake
         if ((inxEntr+1) %  iRowBrake) == 0:
             strMessage = strMessage + '\n'
-    
+
     strMessage = strMessage + '\n'
     return strMessage
 
@@ -296,25 +345,25 @@ def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCol
 
 
     Inputs:
-    
+
     - 1. **arrA** (*Numpy array*)     Array to be printed
-            
+
     - 2 **strArrayName** (*string*)   Name of the array
-    
-    - 3 **strFormat** (*string*)      Format of printing entires of the array 
+
+    - 3 **strFormat** (*string*)      Format of printing entires of the array
                                       Acceptable formats are %d, %f, %.1f, %.2f, %.3f, %.4f, ...
 
     - 4 **iRowBrake** (*int*)         The number of rows before the column indices are printed again
 
-    - 5 **strDelimiter** (*string*)   Delimiter printed between the entries of the array  
-                                     
-    - 6 **iMaxCols** (*int*)          The maximum number of text columns used ot print a single row 
+    - 5 **strDelimiter** (*string*)   Delimiter printed between the entries of the array
+
+    - 6 **iMaxCols** (*int*)          The maximum number of text columns used ot print a single row
 
     - 7 **bPrintHeader** (*int*)      Add header with array name, dimension and size?
                                       1 - yes add, 0 - do not add [optional, default = 0]
 
     Output:
-    
+
     - 1. **strMessage** (*string*)   String with entries of the numpy array
     """
 
@@ -332,7 +381,7 @@ def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCol
     # lSpacesEnt - a list with spaces which should be added to entries
     # strAddSpaceInd - string with an additional space added to indices of entries
     # strAddSpaceEnt - string with an additional space added to  entries
-    
+
     # Get the line printing parameters: the number of lines and number of entries in one line
     (nLines, nEntrypLine, nEntrypLastLine) = _1DgetLineParam(iMaxCols, nEnt, nD, nMaxChrEnt,  strAddSpaceEnt)
     # nLines - the number of lines used to print all the entries from the array
@@ -376,16 +425,16 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
 
 
     Inputs:
-    
-    - 1. **arrA** (*Numpy array*)     Array to be printed
-                
-    - 2 **strFormat** (*string*)      Format of printing entires of the array 
 
-    - 3 **strDelimiter** (*string*)   Delimiter printed between the entries of the array  
+    - 1. **arrA** (*Numpy array*)     Array to be printed
+
+    - 2 **strFormat** (*string*)      Format of printing entires of the array
+
+    - 3 **strDelimiter** (*string*)   Delimiter printed between the entries of the array
 
 
     Output:
-    
+
     - 1. **nEnt** (*int*)         The number of entries in the array
 
     - 2. **nD** (*int*)           The number of characters in the delimter
@@ -395,7 +444,7 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
     - 4. **nMaxChrEnt** (*int*)   The maximum number of characters in entries of the array
 
     - 5. **nMinChrEnt** (*int*)   The minimum number of characters in entries of the array
-   
+
     """
     nEnt = arrA.size    # Get the number of entries in 1D array
 
@@ -404,20 +453,20 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
     # --------------------------------------------------------------------
     # Get the higest number of characters in...
 
-    iMaxAbsInt = np.floor(np.max(np.abs(arrA)))        # ...integer part of entries of the array 
+    iMaxAbsInt = np.floor(np.max(np.abs(arrA)))        # ...integer part of entries of the array
     nX = np.ceil(np.log10(iMaxAbsInt+1)).astype(int)   # ^
     if (nX == 0):                                      # ^
         nX = 1                                         # ^
- 
+
     nC = np.ceil(np.log10(nEnt)).astype(int)       # ...size of the array
     if (nC == 0):
         nC = 1
-           
+
     nD = len(strDelimiter)                             # ...delimiter
 
     nMaxChrInd = nC + 1               # ... indices of the array (1 because of :)
-    
-    nMaxChrEnt = nX + nM              # ... entries of the array 
+
+    nMaxChrEnt = nX + nM              # ... entries of the array
     if bInt == 0:                     # Add 1 because of . in float numbers
         nMaxChrEnt = nMaxChrEnt + 1   # ^
     if (arrA[arrA<0].size) > 0:       # Add 1 because of '-' in negative numbers
@@ -425,19 +474,19 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
 
     # ----
     # Get the lowest number of characters in...
-    iMinAbsInt = np.floor(np.min(np.abs(arrA)))         # ...integer part of entries of the array 
+    iMinAbsInt = np.floor(np.min(np.abs(arrA)))         # ...integer part of entries of the array
     nXl = np.ceil(np.log10(iMinAbsInt+1)).astype(int)   # ^
     if nXl == 0:
         nXl = 1
 
-    nMinChrEnt = nXl + nM             # ... entries of the array 
+    nMinChrEnt = nXl + nM             # ... entries of the array
     if bInt == 0:                     # Add 1 because of . in float numbers
         nMinChrEnt = nMinChrEnt + 1   # ^
     if (arrA[arrA>=0].size) == 0:     # Add 1 because of '-' in all negative numbers
         nMinChrEnt = nMinChrEnt + 1   # ^
 
     # --------------------------------------------------------------------
- 
+
     return (nEnt, nD, nMaxChrInd, nMaxChrEnt, nMinChrEnt)
 
 
@@ -448,7 +497,7 @@ def _1DcreateEqSpaces(nMaxChrInd, nMaxChrEnt, nMinChrEnt):
 
 
     Inputs:
-    
+
     - 1. **nMaxChrInd** (*int*)   The maximum number of characters in indices of the array
 
     - 2. **nMaxChrEnt** (*int*)   The maximum number of characters in entries of the array
@@ -457,17 +506,17 @@ def _1DcreateEqSpaces(nMaxChrInd, nMaxChrEnt, nMinChrEnt):
 
 
     Output:
-    
-    - 1. **lSpacesInd** (*list*)  A list with spaces which should be added to indices of an entry   
+
+    - 1. **lSpacesInd** (*list*)  A list with spaces which should be added to indices of an entry
 
     - 2. **lSpacesEnt** (*list*)  A list with spaces which should be added to entries
 
     - 3. **strAddSpaceInd** (*string*)  A string with an additional space added to indices of entries
-    
+
     - 4. **strAddSpaceEnt** (*string*)  A string with an additional space added to entries
-        
-    """    
-    # Create additional spaces for indices of entries and the entries 
+
+    """
+    # Create additional spaces for indices of entries and the entries
     # These spaces are used to equalize indices of entries with the entries
     if (nMaxChrInd >= nMaxChrEnt):
         strAddSpaceEnt = (nMaxChrInd - nMaxChrEnt) * ' '
@@ -477,8 +526,8 @@ def _1DcreateEqSpaces(nMaxChrInd, nMaxChrEnt, nMinChrEnt):
         strAddSpaceInd = (nMaxChrEnt - nMaxChrInd) * ' '
 
     # --------------------------------------------------------------------
-    # Create a list with spaces which should be added to indices of an entry 
-    # These spaces are used to equalize the number of characters in indices of  
+    # Create a list with spaces which should be added to indices of an entry
+    # These spaces are used to equalize the number of characters in indices of
     # entries with the number of characters in the longest index of an entry
     nLongSpace = nMaxChrInd - 2                        # The longest space to be added to indices of entries
     lSpacesInd = []                                    # Start a list with blank spaces
@@ -486,13 +535,13 @@ def _1DcreateEqSpaces(nMaxChrInd, nMaxChrEnt, nMinChrEnt):
         lSpacesInd.append(iSpaceSize * ' ')
 
     # Create a list with spaces which should be added to entries
-    # These spaces are used to equalize the number of characters in entries  
+    # These spaces are used to equalize the number of characters in entries
     # with the number of characters in the longest entry
     nLongSpace = nMaxChrEnt - nMinChrEnt         # The longest space to be added to entries
     lSpacesEnt = []                              # Start a list with blank spaces
     for iSpaceSize in np.arange(nLongSpace+1):   # Create a list with blank spaces
         lSpacesEnt.append(iSpaceSize * ' ')
-    
+
     return (lSpacesInd, lSpacesEnt, strAddSpaceInd, strAddSpaceEnt)
 
 
@@ -503,27 +552,27 @@ def _1DgetLineParam(iMaxCols, nEnt, nD, nMaxChrEnt,  strAddSpaceEnt):
 
 
     Inputs:
-    
+
     - 1. **iMaxCols** (*int*)        The maximum number of text columns used ot print a single row
 
     - 2. **nEnt** (*int*)            The number of entries in the array
 
     - 3. **nD** (*int*)              The number of characters in the delimter
-    
+
     - 4. **nMaxChrEnt** (*int*)      The maximum number of characters in entries of the array
-    
+
     - 5. **strAddSpaceEnt** (*int*)  A string with an additional space added to entries
 
     Output:
-    
+
     - 1. **nLines** (*int*)           The number of lines used to print all the entries from the array
 
     - 2. **nEntrypLine** (*int*)      The number of entries in one line
 
     - 3. **nEntrypLastLine** (*int*)  The number of entries in the last line
-        
-    """    
-    
+
+    """
+
     # Calculate the maximum number of characters needed to print one entry
     nChr1Entry = len(strAddSpaceEnt) + nMaxChrEnt + nD   # entry additional space + entry + delimiter
 
@@ -539,7 +588,7 @@ def _1DgetLineParam(iMaxCols, nEnt, nD, nMaxChrEnt,  strAddSpaceEnt):
 
     # Compute the number of entries in the last line
     nEntrypLastLine = nEnt - nEntrypLine * (nLines - 1)
-    
+
     return (nLines, nEntrypLine, nEntrypLastLine)
 
 
@@ -547,27 +596,27 @@ def _1DgetLineParam(iMaxCols, nEnt, nD, nMaxChrEnt,  strAddSpaceEnt):
 # %%#############################################################################
 def _1DprintIndices(arrA, iStartEntry, nEntries, lSpacesInd, strAddSpaceInd, nD):
     """
-    Function prints in one line indices of selected entries from a 1D array 
+    Function prints in one line indices of selected entries from a 1D array
 
 
     Inputs:
-    
+
     - 1. **arrA** (*Numpy array*)       Array to be printed
-            
+
     - 2. **iStartEntry** (*int*)        Index of the first entry to be printed
-    
-    - 3. **nEntries** (*int*)           The number of entries to be printed 
-                                        
-    - 4. **lSpacesInd** (*list*)        A list with spaces which should be added to indices of an entry 
-                                        
+
+    - 3. **nEntries** (*int*)           The number of entries to be printed
+
+    - 4. **lSpacesInd** (*list*)        A list with spaces which should be added to indices of an entry
+
     - 5. **strAddSpaceEnt** (*string*)  Blank spaces before every entry to equalize length of printed entries
                                         with printed indices of column
 
     - 6. **nD** (*integer*)             The number of characters in delimiter
-    
+
     Output:
-    
-    - 1. **strMessage** (*string*)   String with indices of entries  
+
+    - 1. **strMessage** (*string*)   String with indices of entries
     """
 
     # Get the lowest number of digits in indices of entries
@@ -635,15 +684,15 @@ def _1DprintEntries(arrA, iStartEntry, nEntries, strAddSpaceEnt, lSpaces, strDel
 # %%#############################################################################
 def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, bPrintHeader):
     """
-     Function prints 2D numpy array 
+     Function prints 2D numpy array
 
 
     Inputs:
-    
+
     - 1. **arrA** (*Numpy array*)     Array to be printed
-            
+
     - 2 **strArrayName** (*string*)   Name of the array
-    
+
     - 3 **strFormat** (*string*)      Format of printing entires of the array [optional, default = '%f']
                                       Acceptable formats are %d, %f, %.1f, %.2f, %.3f, %.4f, ...
 
@@ -676,7 +725,7 @@ def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, b
     (lSpacesIndC, lSpacesIndR, lSpacesEnt, strAddSpaceIndC, strAddSpaceEnt) = \
         _2DcreateEqSpaces(nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt)
 
-    # --------------------------------------------------------------------    
+    # --------------------------------------------------------------------
     # Check if it is possible to print at least one entry?
 
     # Get the  the line printing parameters: the number of lines and number of entries in one line
@@ -689,7 +738,7 @@ def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, b
     # Printing starts here
 
     # If rows must be broke into many lines, indices of columns must be printed after every row
-    if (nLines > 1):    
+    if (nLines > 1):
         iRowBrake = 1
 
     strMessage = _printHeader(arrA, strArrayName, bPrintHeader)   # Add a header, if requested
@@ -712,7 +761,7 @@ def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, b
             # Print indices of columns, if needed
             if ((inxRow % iRowBrake) == 0):
                 strMessage = strMessage + _2DprintColumns(inxStartCol, nEntries, strAddSpaceIndC, lSpacesIndC, nMaxChrIndR, nD)
- 
+
             # Print index of the current row
             strMessage = strMessage + _2DprintInxRow(inxRow, lSpacesIndR)
 
@@ -732,16 +781,16 @@ def _2DgetTechnical(arrA, strFormat, strDelimiter):
 
 
     Inputs:
-    
-    - 1. **arrA** (*Numpy array*)     Array to be printed
-                
-    - 2 **strFormat** (*string*)      Format of printing entires of the array 
 
-    - 3 **strDelimiter** (*string*)   Delimiter printed between the entries of the array  
+    - 1. **arrA** (*Numpy array*)     Array to be printed
+
+    - 2 **strFormat** (*string*)      Format of printing entires of the array
+
+    - 3 **strDelimiter** (*string*)   Delimiter printed between the entries of the array
 
 
     Output:
-    
+
     - 1. **nRows** (*int*)         The number of rows in the array
 
     - 2. **nCols** (*int*)         The number of columns in the array
@@ -755,7 +804,7 @@ def _2DgetTechnical(arrA, strFormat, strDelimiter):
     - 6. **nMaxChrIndC** (*int*)   The maximum number of characters in indices of columns of the array
 
     - 7. **nMinChrEnt** (*int*)    The minimum number of characters in entries of the array
-   
+
     """
 
     (nRows, nCols) = arrA.shape  # Get the dimensions of the array
@@ -764,7 +813,7 @@ def _2DgetTechnical(arrA, strFormat, strDelimiter):
 
     # --------------------------------------------------------------------
     # Get the higest number of characters in...
-    iMaxAbsInt = np.floor(np.max(np.abs(arrA)))        # ...integer part of elements of the array 
+    iMaxAbsInt = np.floor(np.max(np.abs(arrA)))        # ...integer part of elements of the array
     nX = np.ceil(np.log10(iMaxAbsInt+1)).astype(int)   # ^
     if (nX == 0):                                      # ^
         nX = 1                                         # ^
@@ -786,7 +835,7 @@ def _2DgetTechnical(arrA, strFormat, strDelimiter):
     nMaxChrIndC = nMaxChrIndC + 1                        # ^  (1 because of :)
 
     nD = len(strDelimiter)                             # ...delimiter
-    
+
     # ----
 
     # Get the lowest number of characters in...
@@ -795,14 +844,14 @@ def _2DgetTechnical(arrA, strFormat, strDelimiter):
     if nXl == 0:
         nXl = 1
 
-    nMinChrEnt = nXl + nM             # ... entries of the array 
+    nMinChrEnt = nXl + nM             # ... entries of the array
     if bInt == 0:                     # Add 1 because of . in float numbers
         nMinChrEnt = nMinChrEnt + 1   # ^
     if (arrA[arrA>=0].size) == 0:     # Add 1 because of '-' in all negative numbers
         nMinChrEnt = nMinChrEnt + 1   # ^
 
     # --------------------------------------------------------------------
-    
+
     return (nRows, nCols, nD, nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt)
 
 
@@ -813,7 +862,7 @@ def _2DcreateEqSpaces(nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt):
 
 
     Inputs:
-    
+
     - 1. **nMaxChrEnt** (*int*)    The maximum number of characters in entries of the array
 
     - 2. **nMaxChrIndR** (*int*)   The maximum number of characters in indices of rows of the array
@@ -822,21 +871,21 @@ def _2DcreateEqSpaces(nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt):
 
     - 4. **nMinChrEnt** (*int*)    The minimum number of characters in entries of the array
 
-   
+
     Output:
 
     - 1. **lSpacesIndC** (*list*)          A list with spaces which should be added to indices of columns
- 
+
     - 2. **lSpacesIndR** (*list*)          A list with spaces which should be added to indices of rows
 
     - 3. **lSpacesEnt** (*list*)           A list with spaces which should be added to entries
 
     - 4. **strAddSpaceIndC** (*string*)    A string with an additional space added to indices of entries
-    
+
     - 5. **strAddSpaceEnt** (*string*)     A string with an additional space added to entries
 
     """
-    # Create additional spaces for indices of columns and the entries 
+    # Create additional spaces for indices of columns and the entries
     # These spaces are used to equalize indices of columns with the entries
     if (nMaxChrIndC >= nMaxChrEnt):
         strAddSpaceEnt = (nMaxChrIndC - nMaxChrEnt) * ' '
@@ -846,7 +895,7 @@ def _2DcreateEqSpaces(nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt):
         strAddSpaceIndC = (nMaxChrEnt - nMaxChrIndC) * ' '
 
     # Create a list with spaces which should be added to indices of columns
-    # These spaces are used to equalize the number of characters in indices of  
+    # These spaces are used to equalize the number of characters in indices of
     # columns with the number of characters in the longest index of a column
     nLongSpaceC = nMaxChrIndC - 1                       # The longest space to be added to indices of columns
     lSpacesIndC = []                                    # Start a list with blank spaces
@@ -854,7 +903,7 @@ def _2DcreateEqSpaces(nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt):
         lSpacesIndC.append(iSpaceSize * ' ')
 
     # Create a list with spaces which should be added to indices of rows
-    # These spaces are used to equalize the number of characters in indices of  
+    # These spaces are used to equalize the number of characters in indices of
     # rows with the number of characters in the longest index of a rows
     nLongSpaceR = nMaxChrIndR - 1                       # The longest space to be added to indices of rows
     lSpacesIndR = []                                    # Start a list with blank spaces
@@ -862,7 +911,7 @@ def _2DcreateEqSpaces(nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt):
         lSpacesIndR.append(iSpaceSize * ' ')
 
     # Create a list with spaces which should be added to entries
-    # These spaces are used to equalize the number of characters in entries  
+    # These spaces are used to equalize the number of characters in entries
     # with the number of characters in the longest entry
     nLongSpace = nMaxChrEnt - nMinChrEnt         # The longest space to be added to entries
     lSpacesEnt = []                              # Start a list with blank spaces
@@ -879,29 +928,29 @@ def _2DgetLineParam(iMaxCols, nCols, nD, nMaxChrEnt, nMaxChrIndR, strAddSpaceEnt
 
 
     Inputs:
-    
+
     - 1. **iMaxCols** (*int*)           The maximum number of text columns used ot print a single row
 
     - 2. **nCols** (*int*)              The number of columns in the array
 
     - 3. **nD** (*int*)                 The number of characters in the delimter
-    
+
     - 4. **nMaxChrEnt** (*int*)         The maximum number of characters in entries of the array
-    
-    - 5. **nMaxChrIndR** (*int*)        The maximum number of characters in indices of row    
-    
+
+    - 5. **nMaxChrIndR** (*int*)        The maximum number of characters in indices of row
+
     - 5. **strAddSpaceEnt** (*string*)  A string with an additional space added to entries
 
     Output:
-    
+
     - 1. **nLines** (*int*)           The number of lines used to print all the entries from the array
 
     - 2. **nEntrypLine** (*int*)      The number of entries in one line
 
     - 3. **nEntrypLastLine** (*int*)  The number of entries in the last line
-        
-    """    
-        
+
+    """
+
     # Calculate the maximum number of characters needed to print one entry
     nChr1Entry = len(strAddSpaceEnt) + nMaxChrEnt + nD   # entry additional space + entry + delimiter
 
@@ -931,25 +980,25 @@ def _2DprintColumns(iStartCol, nEntries, strAddSpaceIndC, lSpacesIndC, nMaxChrIn
 
 
     Inputs:
-    
+
     - 1. **iStartCol** (*int*)            Index of the first columns to be printed
 
     - 2. **nEntries** (*int*)             The number of entries for which the indices of columns will be printed
 
     - 3. **strAddSpaceIndC** (*string*)   A string with an additional space added to indices of entries
-    
+
     - 4. **lSpacesIndC** (*list*)         A list with spaces which should be added to indices of columns
-    
+
     - 5. **nMaxChrIndR** (*int*)          A list with spaces which should be added to indices of rows
-    
+
     - 5. **nD** (*int*)                   The number of characters in the delimter
 
     Output:
-    
-    - 1. **strMessage** (*string*)   The string with printed requested indices of columns 
 
-    """    
-    
+    - 1. **strMessage** (*string*)   The string with printed requested indices of columns
+
+    """
+
     # Print space which is over indices of rows + 2 characters margin
     strMessage = (nMaxChrIndR * ' ') + (2 * ' ')
 
@@ -960,32 +1009,32 @@ def _2DprintColumns(iStartCol, nEntries, strAddSpaceIndC, lSpacesIndC, nMaxChrIn
 
     nDigs = nIndDigL   # The current number of digits
     iThr = 10**nDigs   # Next threshold which changes the number of digits
-    
+
     # Loop over all indices of columns
     for inxCol in np.arange(iStartCol, iStartCol+nEntries):
         if inxCol == iThr:       # Threshold is reached
             nDigs = nDigs + 1    # The number of digits
-            iThr = iThr * 10     # Threshold            
+            iThr = iThr * 10     # Threshold
         strMessage = strMessage + ('%s%s%d:%s') % (strAddSpaceIndC, lSpacesIndC[nDigs], inxCol, nD * ' ')  # Print the current column
     strMessage = strMessage + '\n'
     return strMessage
-    
+
 
 # %%#############################################################################
 def _2DprintInxRow(inxRow, lSpacesIndR):
     """
-    Function prints one index of a row 
+    Function prints one index of a row of a 2D array
 
 
     Inputs:
-    
+
     - 1. **inxCol** (*int*)            Index of the row to be printed
 
     - 2. **lSpacesIndR** (*list*)      A list with spaces which should be added to indices of rows
 
     Output:
-    
-    - 1. **strMessage** (*string*)   The string with printed requested index of a row 
+
+    - 1. **strMessage** (*string*)   The string with printed requested index of a row
 
     """
 
@@ -995,16 +1044,16 @@ def _2DprintInxRow(inxRow, lSpacesIndR):
     strMessage = strMessage + '  '
     return strMessage
 
-    
+
 
 # %%#############################################################################
 def _2DprintRow(arrA, inxRow, iStartCol, nEntries, nMaxChrEnt, strFormat, strAddSpaceEnt, lSpacesEnt, strDelimiter):
     """
-    Function prints entries from the current row for a 2D array
+    Function prints selected entries from the current row for a 2D array
 
 
     Inputs:
-    
+
     - 1. **arrA** (*Numpy array*)           Array to be printed
 
     - 2. **inxRow** (*int*)                 Index of the rows from which the entries are printed
@@ -1012,20 +1061,20 @@ def _2DprintRow(arrA, inxRow, iStartCol, nEntries, nMaxChrEnt, strFormat, strAdd
     - 3. **iStartCol** (*int*)              Index of the first column from which the entries are printed
 
     - 4. **nEntries** (*int*)               The number of entries to be printed
-    
+
     - 5. **nMaxChrEnt** (*int*)             The maximum number of characters in entries of the array
-    
+
     - 6. **strFormat** (*string*)           Format of printing entries of the array
 
-    - 7. **strAddSpaceEnt** (*string*)      A string with an additional space added to entries   
-    
+    - 7. **strAddSpaceEnt** (*string*)      A string with an additional space added to entries
+
     - 8. **lSpacesEnt** (*list*)            A list with spaces which should be added to entries
-    
-    - 9. **strDelimiter** (*string*)        Delimiter printed between the entries of the array 
+
+    - 9. **strDelimiter** (*string*)        Delimiter printed between the entries of the array
 
 
     Output:
-    
+
     - 1. **strMessage** (*string*)   The string with printed requested entries
 
     """
@@ -1037,7 +1086,7 @@ def _2DprintRow(arrA, inxRow, iStartCol, nEntries, nMaxChrEnt, strFormat, strAdd
     # Loop over all entries in a row
     for inxEntr in np.arange(iStartCol, iStartCol+nEntries):
         strEntry = eval(strPrintEntry)    # Create the current entry
-        nChrEntry = len(strEntry)         # The number of characters in the current entry  
+        nChrEntry = len(strEntry)         # The number of characters in the current entry
         nSpace = nMaxChrEnt - nChrEntry   # The lenght of a space which must be added
 
         strMessage = strMessage + ('%s%s%s%s') % (strAddSpaceEnt, lSpacesEnt[nSpace], strEntry, strDelimiter)  # Print the entry
