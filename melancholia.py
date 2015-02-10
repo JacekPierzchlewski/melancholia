@@ -77,7 +77,8 @@ import numpy as np
 
 
 # %%#############################################################################
-def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='   ', iMaxCols=4096, bVert1D=1, bPrintHeader=0):
+def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='   ',
+           iMaxCols=4096, bVert1D=1, bPrintHeader=0, iLineSpaces=1, iRowSpaces=1):
     """
     Function prints 1D or 2D numpy array to a string variable
 
@@ -109,6 +110,13 @@ def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='  
 
     - 8 **bPrintHeader** (*int*)     Add header with array name, dimension and size?
                                      1 - yes add, 0 - do not add [optional, default = 0]
+
+    - 9 **iLineSpaces** (*int*)      The number of spaces between printed lines
+                                     [optional, default = 1]
+
+    - 10 **iRowSpaces** (*int*)      The number of spaces between printed rows (only for 2D arrays)
+                                     [optional, default = 1]
+
     Output:
 
     - 1. **strMessage** (*string*)   String with entries of the numpy array
@@ -121,10 +129,10 @@ def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='  
         if bVert1D == 1:
             strMessage = _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader)
         else:
-            strMessage = _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, bPrintHeader)
+            strMessage = _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, bPrintHeader, iLineSpaces)
 
     elif (arrA.ndim == 2):
-        strMessage = _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, bPrintHeader)
+        strMessage = _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, bPrintHeader, iLineSpaces, iRowSpaces)
     # If the array has neither 1 nor 2 dimensions, it is an error
     else:
         raise ValueError('Numpy array which is to be printed to a file must be of 1- or 2-dimensions!')
@@ -339,7 +347,7 @@ def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
 
 
 # %%#############################################################################
-def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, bPrintHeader):
+def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, bPrintHeader, iLineSpaces):
     """
     Function prints 1D numpy array horizontally
 
@@ -361,6 +369,9 @@ def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCol
 
     - 7 **bPrintHeader** (*int*)      Add header with array name, dimension and size?
                                       1 - yes add, 0 - do not add [optional, default = 0]
+
+    - 8 **iLineSpaces** (*int*)       The number of spaces between printed lines
+                                      [optional, default = 1]
 
     Output:
 
@@ -409,7 +420,9 @@ def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCol
                                                   nEntrypLine,                    # ^
                                                   strAddSpaceEnt, lSpacesEnt,     # ^
                                                   strDelimiter, strFormat,        # ^
-                                                  nMaxChrEnt) + '\n\n'            # ^
+                                                  nMaxChrEnt) + '\n'              # ^
+
+        strMessage = strMessage + iLineSpaces * '\n'  # Add spaces between lines
 
         iStartEntry = iStartEntry + nEntrypLine  # Move forward the start entry
 
@@ -681,7 +694,7 @@ def _1DprintEntries(arrA, iStartEntry, nEntries, strAddSpaceEnt, lSpaces, strDel
 
 
 # %%#############################################################################
-def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, bPrintHeader):
+def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, bPrintHeader, iLineSpaces, iRowSpaces):
     """
      Function prints 2D numpy array
 
@@ -703,6 +716,12 @@ def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, b
 
     - 7 **bPrintHeader** (*int*)      Add header with array name, dimension and size?
                                       1 - yes add, 0 - do not add [optional, default = 0]
+
+    - 8 **iLineSpaces** (*int*)       The number of spaces between printed lines
+                                      [optional, default = 1]
+
+    - 9 **iRowSpaces** (*int*)        The number of spaces between printed rows (only for 2D arrays)
+                                      [optional, default = 1]
 
     Output:
 
@@ -761,15 +780,22 @@ def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, b
             if ((inxRow % iRowBrake) == 0):
                 strMessage = strMessage + _2DprintColumns(inxStartCol, nEntries, strAddSpaceIndC, lSpacesIndC, nMaxChrIndR, nD)
 
-            # Print index of the current row
+            # Print index of the current line
             strMessage = strMessage + _2DprintInxRow(inxRow, lSpacesIndR)
 
-            # Print entries from the current row
+            # Print entries from the current line
             strMessage = strMessage + _2DprintRow(arrA, inxRow, inxStartCol, nEntries, nMaxChrEnt, strFormat, strAddSpaceEnt, lSpacesEnt, strDelimiter)
             strMessage = strMessage + '\n'
 
-        # Add a separator at the end of the row
-        strMessage = strMessage + '\n'
+            # Add spaces between lines (only if there are multiple lines and it is not the last line)
+            if (nLines > 1) and (inxLine < nLines-1):
+                strMessage = strMessage + iLineSpaces * '\n'
+
+        strMessage = strMessage + iRowSpaces * '\n'    # Add new lines at the end of the row
+        if (iRowSpaces == 0) and (inxRow == nRows-1):  # Force a new line after the last row
+            strMessage = strMessage + '\n'
+
+    strMessage = strMessage + '\n'   # Add a new line at the end of the array
     return strMessage
 
 
