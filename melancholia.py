@@ -78,7 +78,7 @@ import numpy as np
 
 # %%#############################################################################
 def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='   ',
-           iMaxCols=4096, bVert1D=1, bPrintHeader=0, iLineSpaces=1, iRowSpaces=1):
+           iMaxCols=4096, iMaxEntr=np.inf, bVert1D=1, bPrintHeader=0, iLineSpaces=1, iRowSpaces=1):
     """
     Function prints 1D or 2D numpy array to a string variable
 
@@ -106,16 +106,19 @@ def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='  
     - 6 **iMaxCols** (*int*)         The maximum number of text columns used ot print a single row
                                      [optional, default = 4096]
 
-    - 7 **bVert1D** (*int*)          Print a 1-dimensional numpy array vertically or horizontally?
+    - 7 **iMaxEntr** (*int*)         The maximum number of entries printed in a single line
+                                     [optional, default = np.inf <-- only iMaxCols decides about line wrapping]
+
+    - 8 **bVert1D** (*int*)          Print a 1-dimensional numpy array vertically or horizontally?
                                      1 - vertically, 0 - horizontally [optional, default = 1]
 
-    - 8 **bPrintHeader** (*int*)     Add header with array name, dimension and size?
+    - 9 **bPrintHeader** (*int*)     Add header with array name, dimension and size?
                                      1 - yes add, 0 - do not add [optional, default = 0]
 
-    - 9 **iLineSpaces** (*int*)      The number of spaces between printed lines
+    - 10 **iLineSpaces** (*int*)      The number of spaces between printed lines
                                      [optional, default = 1]
 
-    - 10 **iRowSpaces** (*int*)      The number of spaces between printed rows (only for 2D arrays)
+    - 11 **iRowSpaces** (*int*)      The number of spaces between printed rows (only for 2D arrays)
                                      [optional, default = 1]
 
     Output:
@@ -130,10 +133,12 @@ def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='  
         if bVert1D == 1:
             strMessage = _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader)
         else:
-            strMessage = _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, bPrintHeader, iLineSpaces)
+            strMessage = _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter,
+                                      iMaxCols, iMaxEntr, bPrintHeader, iLineSpaces)
 
     elif (arrA.ndim == 2):
-        strMessage = _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, bPrintHeader, iLineSpaces, iRowSpaces)
+        strMessage = _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter,
+                              iMaxCols, iMaxEntr, bPrintHeader, iLineSpaces, iRowSpaces)
     # If the array has neither 1 nor 2 dimensions, it is an error
     else:
         raise ValueError('Numpy array which is to be printed to a file must be of 1- or 2-dimensions!')
@@ -349,7 +354,7 @@ def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
 
 
 # %%#############################################################################
-def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, bPrintHeader, iLineSpaces):
+def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, iMaxEntr, bPrintHeader, iLineSpaces):
     """
     Function prints 1D numpy array horizontally
 
@@ -369,10 +374,12 @@ def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCol
 
     - 6 **iMaxCols** (*int*)          The maximum number of text columns used ot print a single row
 
-    - 7 **bPrintHeader** (*int*)      Add header with array name, dimension and size?
+    - 7 **iMaxEntr** (*int*)          The maximum number of entries printed in a single line
+
+    - 8 **bPrintHeader** (*int*)      Add header with array name, dimension and size?
                                       1 - yes add, 0 - do not add [optional, default = 0]
 
-    - 8 **iLineSpaces** (*int*)       The number of spaces between printed lines
+    - 9 **iLineSpaces** (*int*)       The number of spaces between printed lines
                                       [optional, default = 1]
 
     Output:
@@ -396,7 +403,7 @@ def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCol
     # strAddSpaceEnt - string with an additional space added to  entries
 
     # Get the line printing parameters: the number of lines and number of entries in one line
-    (nLines, nEntrypLine, nEntrypLastLine) = _1DgetLineParam(iMaxCols, nEnt, nD, nMaxChrEnt, strAddSpaceEnt)
+    (nLines, nEntrypLine, nEntrypLastLine) = _1DgetLineParam(iMaxCols, iMaxEntr, nEnt, nD, nMaxChrEnt, strAddSpaceEnt)
     # nLines - the number of lines used to print all the entries from the array
     # nEntrypLine - the number of entries in one line
     # nEntrypLastLine - the number of entries in the last line
@@ -559,7 +566,7 @@ def _1DcreateEqSpaces(nMaxChrInd, nMaxChrEnt, nMinChrEnt):
 
 
 # %%#############################################################################
-def _1DgetLineParam(iMaxCols, nEnt, nD, nMaxChrEnt, strAddSpaceEnt):
+def _1DgetLineParam(iMaxCols, iMaxEntr, nEnt, nD, nMaxChrEnt, strAddSpaceEnt):
     """
     Function computes the line printing parameters for 1D array printing
 
@@ -568,13 +575,15 @@ def _1DgetLineParam(iMaxCols, nEnt, nD, nMaxChrEnt, strAddSpaceEnt):
 
     - 1. **iMaxCols** (*int*)        The maximum number of text columns used ot print a single row
 
-    - 2. **nEnt** (*int*)            The number of entries in the array
+    - 2. **iMaxEntr** (*int*)        The maximum number of entries printed in a single line
 
-    - 3. **nD** (*int*)              The number of characters in the delimter
+    - 3. **nEnt** (*int*)            The number of entries in the array
 
-    - 4. **nMaxChrEnt** (*int*)      The maximum number of characters in entries of the array
+    - 4. **nD** (*int*)              The number of characters in the delimter
 
-    - 5. **strAddSpaceEnt** (*int*)  A string with an additional space added to entries
+    - 5. **nMaxChrEnt** (*int*)      The maximum number of characters in entries of the array
+
+    - 6. **strAddSpaceEnt** (*int*)  A string with an additional space added to entries
 
     Output:
 
@@ -591,6 +600,8 @@ def _1DgetLineParam(iMaxCols, nEnt, nD, nMaxChrEnt, strAddSpaceEnt):
 
     # Compute the number of entries in one line
     nEntrypLine = np.floor((iMaxCols - 4 - 1) / nChr1Entry).astype(int)
+    if (nEntrypLine > iMaxEntr):
+        nEntrypLine = iMaxEntr
 
     # Check if it is possible to print at least one entry?
     if (nEntrypLine == 0):
@@ -694,7 +705,7 @@ def _1DprintEntries(arrA, iStartEntry, nEntries, strAddSpaceEnt, lSpaces, strDel
 
 
 # %%#############################################################################
-def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, bPrintHeader, iLineSpaces, iRowSpaces):
+def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, iMaxEntr, bPrintHeader, iLineSpaces, iRowSpaces):
     """
      Function prints 2D numpy array
 
@@ -714,13 +725,15 @@ def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, b
 
     - 6 **iMaxCols** (*int*)          The maximum number of text columns used ot print a single row
 
-    - 7 **bPrintHeader** (*int*)      Add header with array name, dimension and size?
+    - 8 **iMaxEntr** (*int*)          The maximum number of entries printed in a single line
+
+    - 9 **bPrintHeader** (*int*)      Add header with array name, dimension and size?
                                       1 - yes add, 0 - do not add [optional, default = 0]
 
-    - 8 **iLineSpaces** (*int*)       The number of spaces between printed lines
+    - 10 **iLineSpaces** (*int*)      The number of spaces between printed lines
                                       [optional, default = 1]
 
-    - 9 **iRowSpaces** (*int*)        The number of spaces between printed rows (only for 2D arrays)
+    - 11 **iRowSpaces** (*int*)       The number of spaces between printed rows (only for 2D arrays)
                                       [optional, default = 1]
 
     Output:
@@ -747,7 +760,7 @@ def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, b
     # Check if it is possible to print at least one entry?
 
     # Get the  the line printing parameters: the number of lines and number of entries in one line
-    (nLines, nEntrypLine, nEntrypLastLine) = _2DgetLineParam(iMaxCols, nCols, nD, nMaxChrEnt, nMaxChrIndR, strAddSpaceEnt)
+    (nLines, nEntrypLine, nEntrypLastLine) = _2DgetLineParam(iMaxCols, iMaxEntr, nCols, nD, nMaxChrEnt, nMaxChrIndR, strAddSpaceEnt)
     # nLines - the number of lines used to print all the entries from the array
     # nEntrypLine - the number of entries in one line
     # nEntrypLastLine - the number of entries in the last line
@@ -945,7 +958,7 @@ def _2DcreateEqSpaces(nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt):
 
 
 # %%#############################################################################
-def _2DgetLineParam(iMaxCols, nCols, nD, nMaxChrEnt, nMaxChrIndR, strAddSpaceEnt):
+def _2DgetLineParam(iMaxCols, iMaxEntr, nCols, nD, nMaxChrEnt, nMaxChrIndR, strAddSpaceEnt):
     """
     Function computes the line printing parameters for 2D printing
 
@@ -954,15 +967,17 @@ def _2DgetLineParam(iMaxCols, nCols, nD, nMaxChrEnt, nMaxChrIndR, strAddSpaceEnt
 
     - 1. **iMaxCols** (*int*)           The maximum number of text columns used ot print a single row
 
-    - 2. **nCols** (*int*)              The number of columns in the array
+    - 2. **iMaxEntr** (*int*)           The maximum number of entries printed in a single line
 
-    - 3. **nD** (*int*)                 The number of characters in the delimter
+    - 3. **nCols** (*int*)              The number of columns in the array
 
-    - 4. **nMaxChrEnt** (*int*)         The maximum number of characters in entries of the array
+    - 4. **nD** (*int*)                 The number of characters in the delimter
 
-    - 5. **nMaxChrIndR** (*int*)        The maximum number of characters in indices of row
+    - 5. **nMaxChrEnt** (*int*)         The maximum number of characters in entries of the array
 
-    - 5. **strAddSpaceEnt** (*string*)  A string with an additional space added to entries
+    - 6. **nMaxChrIndR** (*int*)        The maximum number of characters in indices of row
+
+    - 7. **strAddSpaceEnt** (*string*)  A string with an additional space added to entries
 
     Output:
 
@@ -979,6 +994,8 @@ def _2DgetLineParam(iMaxCols, nCols, nD, nMaxChrEnt, nMaxChrIndR, strAddSpaceEnt
 
     # Compute the number of entries in one line
     nEntrypLine = np.floor((iMaxCols - 4 - 1 - nMaxChrIndR) / nChr1Entry).astype(int)
+    if (nEntrypLine > iMaxEntr):
+        nEntrypLine = iMaxEntr
     if (nEntrypLine > nCols):
         nEntrypLine = nCols
 
