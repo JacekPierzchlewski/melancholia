@@ -213,8 +213,8 @@ def _decodeString(strFormat):
 
     # -----------------------------------------------------------------------
     # It is 'f':
-    elif (strFormat[1] == 'f'): # It is 'f'
-        if len(strFormat) > 2:  # It must be the last element in the format string
+    elif (strFormat[1] == 'f'):  # It is 'f'
+        if len(strFormat) > 2:   # It must be the last element in the format string
             _decodeStringErr(strFormat)
         bIntegerOnly = 0
         iNDigitsAfterDot = 6
@@ -231,16 +231,16 @@ def _decodeString(strFormat):
 
         # Now read all the numbers after dot
         iNDigitsAfterDot = 0   # Number after dot
-        for inxChr in np.arange(2, len(strFormat)-1):  # Loop over all
+        for inxChr in np.arange(2, len(strFormat) - 1):  # Loop over all
             cChr = strFormat[inxChr]
             if not ('0' <= cChr <= '9'):
                 _decodeStringErr(strFormat)
             iChrNum = ord(cChr) - 48   # Translate from character to the number
-            iNDigitsAfterDot = iNDigitsAfterDot*10 + iChrNum  # Update the number after dot
+            iNDigitsAfterDot = iNDigitsAfterDot * 10 + iChrNum  # Update the number after dot
             bIntegerOnly = 0
 
         # The last letter after the number must be 'f'
-        if not ((strFormat[len(strFormat)-1]) == 'f'):
+        if not ((strFormat[len(strFormat) - 1]) == 'f'):
             _decodeStringErr(strFormat)
 
     # -----------------------------------------------------------------------
@@ -307,11 +307,11 @@ def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
 
     # --------------------------------------------------------------------
     # Printing starts here:
-    strMessage = _printHeader(arrA, strArrayName, bPrintHeader) # Add a header, if requested
+    strMessage = _printHeader(arrA, strArrayName, bPrintHeader)  # Add a header, if requested
 
     # Loop over all entries in the array
-    nDig = 1;   # The number of digits in the current index of an entry
-    iThr = 10;  # The next threshold which changes the number of digits
+    nDig = 1   # The number of digits in the current index of an entry
+    iThr = 10  # The next threshold which changes the number of digits
     strPrintEntry = '\'%s\' %% (arrA[inxEntr])' % (strFormat)  # Create the command which prints a single entry
     for inxEntr in np.arange(nEnt):
 
@@ -321,7 +321,7 @@ def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
             iThr = iThr * 10  # Move the threshold forward
 
         # Print index of the current entry and its value
-        strMessage = strMessage + ('%d:%s  ') % (inxEntr, lSpacesInd[nDig-1])  # Print index of the current entry
+        strMessage = strMessage + ('%d:%s  ') % (inxEntr, lSpacesInd[nDig - 1])  # Print index of the current entry
         strEntry = eval(strPrintEntry)                # Print the entry
         nBlankSpace = len(strEntry) - nMaxChrEnt      # Compute the number of blank spaces which must be added after an entry
         if arrA[inxEntr] >= 0:    # If the number is 0 or positive, add a blank space before the number
@@ -331,7 +331,7 @@ def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
         strMessage = strMessage + strBlankMinus + strEntry + lSpacesEnt[nBlankSpace] + '\n'   # Print the entry
 
         # Add a row brake, if iRowBrake entries where printed without printing a row brake
-        if ((inxEntr+1) %  iRowBrake) == 0:
+        if ((inxEntr + 1) % iRowBrake) == 0:
             strMessage = strMessage + '\n'
 
     strMessage = strMessage + '\n'
@@ -383,7 +383,7 @@ def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCol
     # strAddSpaceEnt - string with an additional space added to  entries
 
     # Get the line printing parameters: the number of lines and number of entries in one line
-    (nLines, nEntrypLine, nEntrypLastLine) = _1DgetLineParam(iMaxCols, nEnt, nD, nMaxChrEnt,  strAddSpaceEnt)
+    (nLines, nEntrypLine, nEntrypLastLine) = _1DgetLineParam(iMaxCols, nEnt, nD, nMaxChrEnt, strAddSpaceEnt)
     # nLines - the number of lines used to print all the entries from the array
     # nEntrypLine - the number of entries in one line
     # nEntrypLastLine - the number of entries in the last line
@@ -453,10 +453,10 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
     # --------------------------------------------------------------------
     # Get the higest number of characters in...
 
-    iMaxAbsInt = np.floor(np.max(np.abs(arrA)))        # ...integer part of entries of the array
-    nX = np.ceil(np.log10(iMaxAbsInt+1)).astype(int)   # ^
-    if (nX == 0):                                      # ^
-        nX = 1                                         # ^
+    iMaxAbsInt = np.floor(np.max(np.abs(arrA)))          # ...integer part of entries of the array
+    nX = np.ceil(np.log10(iMaxAbsInt + 1)).astype(int)   # ^
+    if (nX == 0):                                        # ^
+        nX = 1                                           # ^
 
     nC = np.ceil(np.log10(nEnt)).astype(int)       # ...size of the array
     if (nC == 0):
@@ -469,20 +469,20 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
     nMaxChrEnt = nX + nM              # ... entries of the array
     if bInt == 0:                     # Add 1 because of . in float numbers
         nMaxChrEnt = nMaxChrEnt + 1   # ^
-    if (arrA[arrA<0].size) > 0:       # Add 1 because of '-' in negative numbers
+    if (arrA[arrA < 0].size) > 0:     # Add 1 because of '-' in negative numbers
         nMaxChrEnt = nMaxChrEnt + 1   # ^
 
     # ----
     # Get the lowest number of characters in...
-    iMinAbsInt = np.floor(np.min(np.abs(arrA)))         # ...integer part of entries of the array
-    nXl = np.ceil(np.log10(iMinAbsInt+1)).astype(int)   # ^
+    iMinAbsInt = np.floor(np.min(np.abs(arrA)))           # ...integer part of entries of the array
+    nXl = np.ceil(np.log10(iMinAbsInt + 1)).astype(int)   # ^
     if nXl == 0:
         nXl = 1
 
     nMinChrEnt = nXl + nM             # ... entries of the array
     if bInt == 0:                     # Add 1 because of . in float numbers
         nMinChrEnt = nMinChrEnt + 1   # ^
-    if (arrA[arrA>=0].size) == 0:     # Add 1 because of '-' in all negative numbers
+    if (arrA[arrA >= 0].size) == 0:   # Add 1 because of '-' in all negative numbers
         nMinChrEnt = nMinChrEnt + 1   # ^
 
     # --------------------------------------------------------------------
@@ -537,16 +537,16 @@ def _1DcreateEqSpaces(nMaxChrInd, nMaxChrEnt, nMinChrEnt):
     # Create a list with spaces which should be added to entries
     # These spaces are used to equalize the number of characters in entries
     # with the number of characters in the longest entry
-    nLongSpace = nMaxChrEnt - nMinChrEnt         # The longest space to be added to entries
-    lSpacesEnt = []                              # Start a list with blank spaces
-    for iSpaceSize in np.arange(nLongSpace+1):   # Create a list with blank spaces
+    nLongSpace = nMaxChrEnt - nMinChrEnt           # The longest space to be added to entries
+    lSpacesEnt = []                                # Start a list with blank spaces
+    for iSpaceSize in np.arange(nLongSpace + 1):   # Create a list with blank spaces
         lSpacesEnt.append(iSpaceSize * ' ')
 
     return (lSpacesInd, lSpacesEnt, strAddSpaceInd, strAddSpaceEnt)
 
 
 # %%#############################################################################
-def _1DgetLineParam(iMaxCols, nEnt, nD, nMaxChrEnt,  strAddSpaceEnt):
+def _1DgetLineParam(iMaxCols, nEnt, nD, nMaxChrEnt, strAddSpaceEnt):
     """
     Function computes the line printing parameters for 1D array printing
 
@@ -592,7 +592,6 @@ def _1DgetLineParam(iMaxCols, nEnt, nD, nMaxChrEnt,  strAddSpaceEnt):
     return (nLines, nEntrypLine, nEntrypLastLine)
 
 
-
 # %%#############################################################################
 def _1DprintIndices(arrA, iStartEntry, nEntries, lSpacesInd, strAddSpaceInd, nD):
     """
@@ -626,13 +625,13 @@ def _1DprintIndices(arrA, iStartEntry, nEntries, lSpacesInd, strAddSpaceInd, nD)
         nIndDigL = 1
 
     strMessage = ''
-    nDigs = nIndDigL   # The current number of digits
-    iThr = 10**nDigs   # Next threshold which changes the number of digits
-    for inxEntry in np.arange(iStartEntry, iStartEntry+nEntries):   # Loop over all entries
+    nDigs = nIndDigL     # The current number of digits
+    iThr = 10 ** nDigs   # Next threshold which changes the number of digits
+    for inxEntry in np.arange(iStartEntry, iStartEntry + nEntries):   # Loop over all entries
         if inxEntry == iThr:     # Threshold is reached
             nDigs = nDigs + 1    # The number of digits
             iThr = iThr * 10     # Threshold
-        strMessage = strMessage + ('%s%s%d:%s') % (strAddSpaceInd, lSpacesInd[nDigs-1], inxEntry, nD * ' ')  # Print the entry
+        strMessage = strMessage + ('%s%s%d:%s') % (strAddSpaceInd, lSpacesInd[nDigs - 1], inxEntry, nD * ' ')  # Print the entry
 
     return strMessage
 
@@ -672,7 +671,7 @@ def _1DprintEntries(arrA, iStartEntry, nEntries, strAddSpaceEnt, lSpaces, strDel
 
     strMessage = ''
     # Loop over all entries
-    for inxEntr in np.arange(iStartEntry, iStartEntry+nEntries):
+    for inxEntr in np.arange(iStartEntry, iStartEntry + nEntries):
         strEntry = eval(strPrintEntry)    # Create the current entry
         nChrEntry = len(strEntry)         # The number of characters in the current entry
         nSpace = nMaxChrEnt - nChrEntry   # The lenght of a space which must be added
@@ -813,15 +812,15 @@ def _2DgetTechnical(arrA, strFormat, strDelimiter):
 
     # --------------------------------------------------------------------
     # Get the higest number of characters in...
-    iMaxAbsInt = np.floor(np.max(np.abs(arrA)))        # ...integer part of elements of the array
-    nX = np.ceil(np.log10(iMaxAbsInt+1)).astype(int)   # ^
-    if (nX == 0):                                      # ^
-        nX = 1                                         # ^
+    iMaxAbsInt = np.floor(np.max(np.abs(arrA)))          # ...integer part of elements of the array
+    nX = np.ceil(np.log10(iMaxAbsInt + 1)).astype(int)   # ^
+    if (nX == 0):                                        # ^
+        nX = 1                                           # ^
 
     nMaxChrEnt = nX + nM                               # ... entries of the array
     if bInt == 0:                                      # Add 1 because of . in float numbers
         nMaxChrEnt = nMaxChrEnt + 1                    # ^
-    if (arrA[arrA<0].size) > 0:                        # Add 1 because of '-' in negative numbers
+    if (arrA[arrA < 0].size) > 0:                      # Add 1 because of '-' in negative numbers
         nMaxChrEnt = nMaxChrEnt + 1                    # ^
 
     nMaxChrIndR = np.ceil(np.log10(nRows)).astype(int)   # ...the number of rows in the array
@@ -839,16 +838,16 @@ def _2DgetTechnical(arrA, strFormat, strDelimiter):
     # ----
 
     # Get the lowest number of characters in...
-    iMinAbsInt = np.floor(np.min(np.abs(arrA)))         # ...integer part of elements of the array
-    nXl = np.ceil(np.log10(iMinAbsInt+1)).astype(int)   # ^
+    iMinAbsInt = np.floor(np.min(np.abs(arrA)))           # ...integer part of elements of the array
+    nXl = np.ceil(np.log10(iMinAbsInt + 1)).astype(int)   # ^
     if nXl == 0:
         nXl = 1
 
-    nMinChrEnt = nXl + nM             # ... entries of the array
-    if bInt == 0:                     # Add 1 because of . in float numbers
-        nMinChrEnt = nMinChrEnt + 1   # ^
-    if (arrA[arrA>=0].size) == 0:     # Add 1 because of '-' in all negative numbers
-        nMinChrEnt = nMinChrEnt + 1   # ^
+    nMinChrEnt = nXl + nM               # ... entries of the array
+    if bInt == 0:                       # Add 1 because of . in float numbers
+        nMinChrEnt = nMinChrEnt + 1     # ^
+    if (arrA[arrA >= 0].size) == 0:     # Add 1 because of '-' in all negative numbers
+        nMinChrEnt = nMinChrEnt + 1     # ^
 
     # --------------------------------------------------------------------
 
@@ -913,9 +912,9 @@ def _2DcreateEqSpaces(nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt):
     # Create a list with spaces which should be added to entries
     # These spaces are used to equalize the number of characters in entries
     # with the number of characters in the longest entry
-    nLongSpace = nMaxChrEnt - nMinChrEnt         # The longest space to be added to entries
-    lSpacesEnt = []                              # Start a list with blank spaces
-    for iSpaceSize in np.arange(nLongSpace+1):   # Create a list with blank spaces
+    nLongSpace = nMaxChrEnt - nMinChrEnt           # The longest space to be added to entries
+    lSpacesEnt = []                                # Start a list with blank spaces
+    for iSpaceSize in np.arange(nLongSpace + 1):   # Create a list with blank spaces
         lSpacesEnt.append(iSpaceSize * ' ')
 
     return (lSpacesIndC, lSpacesIndR, lSpacesEnt, strAddSpaceIndC, strAddSpaceEnt)
@@ -972,7 +971,6 @@ def _2DgetLineParam(iMaxCols, nCols, nD, nMaxChrEnt, nMaxChrIndR, strAddSpaceEnt
     return (nLines, nEntrypLine, nEntrypLastLine)
 
 
-
 # %%#############################################################################
 def _2DprintColumns(iStartCol, nEntries, strAddSpaceIndC, lSpacesIndC, nMaxChrIndR, nD):
     """
@@ -1003,15 +1001,15 @@ def _2DprintColumns(iStartCol, nEntries, strAddSpaceIndC, lSpacesIndC, nMaxChrIn
     strMessage = (nMaxChrIndR * ' ') + (2 * ' ')
 
     # Get the lowest number of digits in indices of columns
-    nIndDigL = np.ceil(np.log10(iStartCol+1)).astype(int)
+    nIndDigL = np.ceil(np.log10(iStartCol + 1)).astype(int)
     if nIndDigL == 0:
         nIndDigL = 1
 
-    nDigs = nIndDigL   # The current number of digits
-    iThr = 10**nDigs   # Next threshold which changes the number of digits
+    nDigs = nIndDigL     # The current number of digits
+    iThr = 10 ** nDigs   # Next threshold which changes the number of digits
 
     # Loop over all indices of columns
-    for inxCol in np.arange(iStartCol, iStartCol+nEntries):
+    for inxCol in np.arange(iStartCol, iStartCol + nEntries):
         if inxCol == iThr:       # Threshold is reached
             nDigs = nDigs + 1    # The number of digits
             iThr = iThr * 10     # Threshold
@@ -1043,7 +1041,6 @@ def _2DprintInxRow(inxRow, lSpacesIndR):
     strMessage = strSpaceBefore + strRowInx            # Connect the above together
     strMessage = strMessage + '  '
     return strMessage
-
 
 
 # %%#############################################################################
@@ -1084,7 +1081,7 @@ def _2DprintRow(arrA, inxRow, iStartCol, nEntries, nMaxChrEnt, strFormat, strAdd
 
     strMessage = ''
     # Loop over all entries in a row
-    for inxEntr in np.arange(iStartCol, iStartCol+nEntries):
+    for inxEntr in np.arange(iStartCol, iStartCol + nEntries):
         strEntry = eval(strPrintEntry)    # Create the current entry
         nChrEntry = len(strEntry)         # The number of characters in the current entry
         nSpace = nMaxChrEnt - nChrEntry   # The lenght of a space which must be added
