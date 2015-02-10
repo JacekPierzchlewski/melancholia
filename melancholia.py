@@ -2,6 +2,7 @@
 This module prints Numpy arrays in a human readable way. |br|
 
 
+*List of functions*:
     
 
 Copyright (C) <2014-2015>  Jacek Pierzchlewski
@@ -438,7 +439,7 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
 # %%#############################################################################
 # Function creates printing equalization spaces for 1D array printing
 #################################################################################
-def  _1DcreateEqSpaces(nMaxChrInd, nMaxChrEnt, nMinChrEnt):
+def _1DcreateEqSpaces(nMaxChrInd, nMaxChrEnt, nMinChrEnt):
     """
     Inputs:
     
@@ -652,7 +653,7 @@ def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, b
     """
 
     # Get technical parameters of 2D array printing
-    (nRows, nCols, nD, nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt) = _getTechnical2Dim(arrA, strFormat, strDelimiter)
+    (nRows, nCols, nD, nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt) = _2DgetTechnical(arrA, strFormat, strDelimiter)
     # nRows - the number of rows in the array
     # nCols - the number of columns in the array
     # nD - the number of characters in the delimter
@@ -700,13 +701,13 @@ def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, b
 
             # Print indices of columns, if needed
             if ((inxRow % iRowBrake) == 0):
-                strMessage = strMessage + _printColumns2D(inxStartCol, nEntries, strAddSpaceIndC, lSpacesIndC, nMaxChrIndR, nD)
+                strMessage = strMessage + _2DprintColumns(inxStartCol, nEntries, strAddSpaceIndC, lSpacesIndC, nMaxChrIndR, nD)
  
             # Print index of the current row
-            strMessage = strMessage + _printInxRow2D(inxRow, lSpacesIndR)
+            strMessage = strMessage + _2DprintInxRow(inxRow, lSpacesIndR)
 
             # Print entries from the current row
-            strMessage = strMessage + _printRow2D(arrA, inxRow, inxStartCol, nEntries, nMaxChrEnt, strFormat, strAddSpaceEnt, lSpacesEnt, strDelimiter)
+            strMessage = strMessage + _2DprintRow(arrA, inxRow, inxStartCol, nEntries, nMaxChrEnt, strFormat, strAddSpaceEnt, lSpacesEnt, strDelimiter)
             strMessage = strMessage + '\n'
 
         # Add a separator at the end of the row
@@ -717,7 +718,7 @@ def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, b
 # %%#############################################################################
 # Function computes technical parameters of 2D-array printing
 #################################################################################
-def _getTechnical2Dim(arrA, strFormat, strDelimiter):
+def _2DgetTechnical(arrA, strFormat, strDelimiter):
     """
 
     Inputs:
@@ -798,7 +799,7 @@ def _getTechnical2Dim(arrA, strFormat, strDelimiter):
 # %%#############################################################################
 # Function creates printing equalization spaces for 2D array printing
 #################################################################################
-def  _2DcreateEqSpaces(nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt):
+def _2DcreateEqSpaces(nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt):
     """
 
     Inputs:
@@ -915,7 +916,7 @@ def _2DgetLineParam(iMaxCols, nCols, nD, nMaxChrEnt, nMaxChrIndR, strAddSpaceEnt
 # %%#############################################################################
 # Function prints indices of columns for 2D array
 #################################################################################
-def _printColumns2D(iStartCol, nEntries, strAddSpaceIndC, lSpacesIndC, nMaxChrIndR, nD):
+def _2DprintColumns(iStartCol, nEntries, strAddSpaceIndC, lSpacesIndC, nMaxChrIndR, nD):
     """
     Inputs:
     
@@ -961,7 +962,7 @@ def _printColumns2D(iStartCol, nEntries, strAddSpaceIndC, lSpacesIndC, nMaxChrIn
 # %%#############################################################################
 # Function prints one index of a row 
 #################################################################################
-def _printInxRow2D(inxRow, lSpacesIndR):
+def _2DprintInxRow(inxRow, lSpacesIndR):
     """
     Inputs:
     
@@ -986,7 +987,7 @@ def _printInxRow2D(inxRow, lSpacesIndR):
 # %%#############################################################################
 # Function prints entries from the current row for a 2D array
 #################################################################################
-def _printRow2D(arrA, inxRow, iStartCol, nEntries, nMaxChrEnt, strFormat, strAddSpaceEnt, lSpacesEnt, strDelimiter):
+def _2DprintRow(arrA, inxRow, iStartCol, nEntries, nMaxChrEnt, strFormat, strAddSpaceEnt, lSpacesEnt, strDelimiter):
     """
     Inputs:
     
