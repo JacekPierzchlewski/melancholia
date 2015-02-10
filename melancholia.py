@@ -6,7 +6,9 @@ This module prints Numpy arrays in a human readable way. |br|
 
         Functions which should be accessed by user:
 
-            A - printA:  Function prints 1D or 2D numpy array to a string variable
+            A - dumpA:  Function prints 1D of 2D numpy array to a text file
+
+            B - printA:  Function prints 1D or 2D numpy array to a string variable
 
         Internal functions:
 
@@ -74,6 +76,66 @@ Copyright (C) <2014-2015>  Jacek Pierzchlewski
 """
 from __future__ import division
 import numpy as np
+
+
+# %%#############################################################################
+def dumpA(arrA, strFile, strMode='w', strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='   ',
+          iMaxCols=4096, iMaxEntr=np.inf, bVert1D=1, bPrintHeader=0, iLineSpaces=1, iRowSpaces=1):
+    """
+    Function prints 1D or 2D numpy array to a text file
+
+    This is the function which prints a Numpy array to a text file.
+    Take a look on files: 'report_1Darray_example' and 'report_2Darray_example' for
+    examples of usage.
+
+
+    Input:
+
+    - 1 **arrA** (*Numpy array*)     Array to be printed
+
+    - 2 **strFile** (*string*)       Name of the file to save the array
+
+    - 3 **strMode** (*string*)       File opening mode
+                                     [optional, default = 'w']
+
+    - 4 **strArrayName** (*string*)  Name of the array [optional, default = '']
+
+    - 5 **strFormat** (*string*)     Format of printing entires of the array [optional, default = '%f']
+                                     Acceptable formats are %d, %f, %.1f, %.2f, %.3f, %.4f, ...
+
+    - 6 **iRowBrake** (*int*)        The number of rows before the column indices are printed again
+                                     [optional, default = 20]
+
+    - 7 **strDelimiter** (*string*)  Delimiter printed between the entries of the array
+                                     [optional, default = '  ' (double space)]
+
+    - 8 **iMaxCols** (*int*)         The maximum number of text columns used ot print a single row
+                                     [optional, default = 4096]
+
+    - 9 **iMaxEntr** (*int*)         The maximum number of entries printed in a single line
+                                     [optional, default = np.inf <-- only iMaxCols decides about line wrapping]
+
+    - 10 **bVert1D** (*int*)         Print a 1-dimensional numpy array vertically or horizontally?
+                                     1 - vertically, 0 - horizontally [optional, default = 1]
+
+    - 11 **bPrintHeader** (*int*)    Add header with array name, dimension and size?
+                                     1 - yes add, 0 - do not add [optional, default = 0]
+
+    - 12 **iLineSpaces** (*int*)     The number of spaces between printed lines
+                                     [optional, default = 1]
+
+    - 13 **iRowSpaces** (*int*)      The number of spaces between printed rows (only for 2D arrays)
+                                     [optional, default = 1]
+
+    Output:  none
+
+    """
+
+    hFile = open(strFile, strMode)
+    strArray = printA(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, iMaxEntr,
+                      bVert1D, bPrintHeader, iLineSpaces, iRowSpaces)
+    hFile.write(strArray)
+    hFile.close()
 
 
 # %%#############################################################################
