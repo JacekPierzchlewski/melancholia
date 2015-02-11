@@ -538,6 +538,22 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
     # --------------------------------------------------------------------
     # Get the higest number of characters in...
 
+    # Change inf into 100 (3 characters), -inf into -100 (4 characters), nan into 100 (3 characters)
+    arrA_nan =  np.isnan(arrA)                      # Positions of nan values in A
+    nNan = (arrA_nan[arrA_nan == True]).size        # The number of nan values in A
+    if nNan > 0:
+        arrA[arrA_nan] = 100                        # Change nan into 100
+
+    arrA_pinf = np.isinf(arrA) * (arrA >= 0)        # Positions of +inf values in A
+    nPInf = (arrA_pinf[arrA_pinf == True]).size     # The number of +inf values in A
+    if nPInf > 0:
+        arrA[arrA_pinf] = 100                       # Change +inf into 100
+
+    arrA_ninf = np.isinf(arrA) * (arrA < 0)         # Positions of -inf values in A
+    nNInf = (arrA_ninf[arrA_ninf == True]).size     # The number of -inf values in A
+    if nNInf > 0:
+        arrA[arrA_ninf] = -100                      # Change -inf into -100
+
     iMaxAbsInt = np.floor(np.max(np.abs(arrA)))          # ...integer part of entries of the array
     nX = np.ceil(np.log10(iMaxAbsInt + 1)).astype(int)   # ^
     if (nX == 0):                                        # ^
@@ -569,6 +585,14 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
         nMinChrEnt = nMinChrEnt + 1   # ^
     if (arrA[arrA >= 0].size) == 0:   # Add 1 because of '-' in all negative numbers
         nMinChrEnt = nMinChrEnt + 1   # ^
+
+    # ---- Restore correct positions of +inf, -inf and nan
+    if nNan > 0:
+        arrA[arrA_nan] = np.nan
+    if nNInf > 0:
+        arrA[arrA_pinf] = np.inf
+    if nNInf > 0:
+        arrA[arrA_ninf] = -np.inf
 
     # --------------------------------------------------------------------
 
