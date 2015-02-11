@@ -536,21 +536,19 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
     # --------------------------------------------------------------------
     # Get the higest number of characters in...
 
-    # Change inf into 100 (3 characters), -inf into -100 (4 characters), nan into 100 (3 characters)
+    # Count how many +inf, -inf and nan are in the array. Change inf, -inf and nan into 0
     arrA_nan =  np.isnan(arrA)                      # Positions of nan values in A
+    arrA[arrA_nan] = 0                              # Change nans into 0
     nNan = (arrA_nan[arrA_nan == True]).size        # The number of nan values in A
-    if nNan > 0:
-        arrA[arrA_nan] = 100                        # Change nan into 100
 
     arrA_pinf = np.isinf(arrA) * (arrA >= 0)        # Positions of +inf values in A
+    arrA[arrA_pinf] = 0                             # Change +infs into 0
     nPInf = (arrA_pinf[arrA_pinf == True]).size     # The number of +inf values in A
-    if nPInf > 0:
-        arrA[arrA_pinf] = 100                       # Change +inf into 100
 
     arrA_ninf = np.isinf(arrA) * (arrA < 0)         # Positions of -inf values in A
+    arrA[arrA_ninf] = 0                             # Change -infs into 0
     nNInf = (arrA_ninf[arrA_ninf == True]).size     # The number of -inf values in A
-    if nNInf > 0:
-        arrA[arrA_ninf] = -100                      # Change -inf into -100
+
 
     iMaxAbsInt = np.floor(np.max(np.abs(arrA)))          # ...integer part of entries of the array
     nX = np.ceil(np.log10(iMaxAbsInt + 1)).astype(int)   # ^
@@ -571,6 +569,18 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
     if (arrA[arrA < 0].size) > 0:     # Add 1 because of '-' in negative numbers
         nMaxChrEnt = nMaxChrEnt + 1   # ^
 
+    # If there is nan in the array, the minumum value of the max number of characters in entries is 3
+    if (nNan > 0) and (nMaxChrEnt < 3):
+        nMaxChrEnt = 3
+
+    # If there is inf in the array, the minumum value of the max number of characters in entries is 3
+    if (nPInf > 0) and (nMaxChrEnt < 3):
+        nMaxChrEnt = 3
+
+    # If there is -inf in the array, the minumum value of the max number of characters in entries is 4
+    if (nNInf > 0) and (nMaxChrEnt < 4):
+        nMaxChrEnt = 4
+
     # ----
     # Get the lowest number of characters in...
     iMinAbsInt = np.floor(np.min(np.abs(arrA)))           # ...integer part of entries of the array
@@ -584,10 +594,22 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
     if (arrA[arrA >= 0].size) == 0:   # Add 1 because of '-' in all negative numbers
         nMinChrEnt = nMinChrEnt + 1   # ^
 
+    # If there is nan in the array, the maximum value of the min number of characters in entries is 3
+    if (nNan > 0) and (nMinChrEnt > 3):
+        nMinChrEnt = 3
+
+    # If there is inf in the array, the maximum value of the min number of characters in entries is 3
+    if (nPInf > 0) and (nMinChrEnt > 3):
+        nMinChrEnt = 3
+
+    # If there is -inf in the array, the maximum value of the min number of characters in entries is 4
+    if (nNInf > 0) and (nMinChrEnt > 4):
+        nMinChrEnt = 4
+
     # ---- Restore correct positions of +inf, -inf and nan
     if nNan > 0:
         arrA[arrA_nan] = np.nan
-    if nNInf > 0:
+    if nPInf > 0:
         arrA[arrA_pinf] = np.inf
     if nNInf > 0:
         arrA[arrA_ninf] = -np.inf
