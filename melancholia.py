@@ -66,7 +66,8 @@ Copyright (C) <2014-2015>  Jacek Pierzchlewski
 
 *Version*:
     1.0-alpha  | 9-FEB-2015 : * Alpha version is ready. |br|
-    1.0-beta  | 10-FEB-2015 : * Beta version is ready. |br|
+    1.0-beta   | 10-FEB-2015 : * Beta version is ready. |br|
+    1.0        | 11-FEB-2015 : * 1.0 version is ready. |br|
 
 
 *License*:
