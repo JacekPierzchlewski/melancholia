@@ -529,13 +529,7 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
     - 5 **nMinChrEnt** (*int*)   The minimum number of characters in entries of the array
 
     """
-    nEnt = arrA.size    # Get the number of entries in 1D array
-
-    (bInt, nM) = _decodeString(strFormat)   # Decode the string with printing format
-
     # --------------------------------------------------------------------
-    # Get the higest number of characters in...
-
     # Count how many +inf, -inf and nan are in the array. Change inf, -inf and nan into 0
     arrA_nan =  np.isnan(arrA)                      # Positions of nan values in A
     arrA[arrA_nan] = 0                              # Change nans into 0
@@ -548,6 +542,11 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
     arrA_ninf = np.isinf(arrA) * (arrA < 0)         # Positions of -inf values in A
     arrA[arrA_ninf] = 0                             # Change -infs into 0
     nNInf = (arrA_ninf[arrA_ninf == True]).size     # The number of -inf values in A
+    # --------------------------------------------------------------------
+
+    # --------------------------------------------------------------------
+    # Get the higest number of characters in...
+    (bInt, nM) = _decodeString(strFormat)   # Decode the string with printing format
 
     iMaxAbsInt = np.floor(np.max(np.abs(arrA)))          # ...integer part of entries of the array
     nX = np.ceil(np.log10(iMaxAbsInt + 1)).astype(int)   # ^
@@ -573,6 +572,8 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
         nMaxChrEnt = 4
 
     # -------
+    nEnt = arrA.size    # Get the number of entries in 1D array
+
     nC = np.ceil(np.log10(nEnt)).astype(int)       # ...size of the array
     if (nC == 0):
         nC = 1
@@ -613,7 +614,6 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
         arrA[arrA_pinf] = np.inf
     if nNInf > 0:
         arrA[arrA_ninf] = -np.inf
-
     # --------------------------------------------------------------------
 
     return (nEnt, nD, nMaxChrInd, nMaxChrEnt, nMinChrEnt)
@@ -952,13 +952,7 @@ def _2DgetTechnical(arrA, strFormat, strDelimiter):
 
     """
 
-    (nRows, nCols) = arrA.shape  # Get the dimensions of the array
-
-    (bInt, nM) = _decodeString(strFormat)   # Decode the string with printing format
-
     # --------------------------------------------------------------------
-    # Get the higest number of characters in...
-
     # Count how many +inf, -inf and nan are in the array. Change inf, -inf and nan into 0
     arrA_nan =  np.isnan(arrA)                      # Positions of nan values in A
     arrA[arrA_nan] = 0                              # Change nans into 0
@@ -971,8 +965,12 @@ def _2DgetTechnical(arrA, strFormat, strDelimiter):
     arrA_ninf = np.isinf(arrA) * (arrA < 0)         # Positions of -inf values in A
     arrA[arrA_ninf] = 0                             # Change -infs into 0
     nNInf = (arrA_ninf[arrA_ninf == True]).size     # The number of -inf values in A
+    # --------------------------------------------------------------------
 
-    # ----
+    # --------------------------------------------------------------------
+    # Get the higest number of characters in...
+
+    (bInt, nM) = _decodeString(strFormat)   # Decode the string with printing format
 
     iMaxAbsInt = np.floor(np.max(np.abs(arrA)))          # ...integer part of elements of the array
     nX = np.ceil(np.log10(iMaxAbsInt + 1)).astype(int)   # ^
@@ -998,6 +996,7 @@ def _2DgetTechnical(arrA, strFormat, strDelimiter):
         nMaxChrEnt = 4
 
     # ----
+    (nRows, nCols) = arrA.shape  # Get the dimensions of the array
 
     nMaxChrIndR = np.ceil(np.log10(nRows)).astype(int)   # ...the number of rows in the array
     if (nMaxChrIndR == 0):                               # ^
@@ -1044,7 +1043,6 @@ def _2DgetTechnical(arrA, strFormat, strDelimiter):
         arrA[arrA_pinf] = np.inf
     if nNInf > 0:
         arrA[arrA_ninf] = -np.inf
-
     # --------------------------------------------------------------------
 
     return (nRows, nCols, nD, nMaxChrEnt, nMaxChrIndR, nMaxChrIndC, nMinChrEnt)
