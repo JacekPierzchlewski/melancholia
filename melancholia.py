@@ -549,19 +549,10 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
     arrA[arrA_ninf] = 0                             # Change -infs into 0
     nNInf = (arrA_ninf[arrA_ninf == True]).size     # The number of -inf values in A
 
-
     iMaxAbsInt = np.floor(np.max(np.abs(arrA)))          # ...integer part of entries of the array
     nX = np.ceil(np.log10(iMaxAbsInt + 1)).astype(int)   # ^
     if (nX == 0):                                        # ^
         nX = 1                                           # ^
-
-    nC = np.ceil(np.log10(nEnt)).astype(int)       # ...size of the array
-    if (nC == 0):
-        nC = 1
-
-    nD = len(strDelimiter)                             # ...delimiter
-
-    nMaxChrInd = nC + 1               # ... indices of the array (1 because of :)
 
     nMaxChrEnt = nX + nM              # ... entries of the array
     if bInt == 0:                     # Add 1 because of . in float numbers
@@ -581,7 +572,15 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
     if (nNInf > 0) and (nMaxChrEnt < 4):
         nMaxChrEnt = 4
 
-    # ----
+    # -------
+    nC = np.ceil(np.log10(nEnt)).astype(int)       # ...size of the array
+    if (nC == 0):
+        nC = 1
+    nMaxChrInd = nC + 1               # ... indices of the array (1 because of :)
+
+    nD = len(strDelimiter)            # ...delimiter
+
+    # --------------------------------------------------------------------
     # Get the lowest number of characters in...
     iMinAbsInt = np.floor(np.min(np.abs(arrA)))           # ...integer part of entries of the array
     nXl = np.ceil(np.log10(iMinAbsInt + 1)).astype(int)   # ^
@@ -606,7 +605,8 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
     if (nNInf > 0) and (nMinChrEnt > 4):
         nMinChrEnt = 4
 
-    # ---- Restore correct positions of +inf, -inf and nan
+    # --------------------------------------------------------------------
+    # Restore correct positions of +inf, -inf and nan in the array
     if nNan > 0:
         arrA[arrA_nan] = np.nan
     if nPInf > 0:
