@@ -380,9 +380,8 @@ def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
     # nMinChrEnt - the minimum number of characters in entries of the array
 
     # Get the printing equalization spaces
-    (lSpacesInd, lSpacesEnt, _, _) = _1DcreateEqSpaces(nMaxChrInd, nMaxChrEnt, nMinChrEnt)
+    (lSpacesInd, _, _, _) = _1DcreateEqSpaces(nMaxChrInd, nMaxChrEnt, nMinChrEnt)
     # lSpacesInd - a list with spaces which should be added to indices of an entry
-    # lSpacesEnt - a list with spaces which should be added to entries
 
     # --------------------------------------------------------------------
     # Printing starts here:
@@ -402,12 +401,11 @@ def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
         # Print index of the current entry and its value
         strArray = strArray + ('%d:%s  ') % (inxEntr, lSpacesInd[nDig - 1])  # Print index of the current entry
         strEntry = eval(strPrintEntry)                # Print the entry
-        nBlankSpace = len(strEntry) - nMaxChrEnt      # Compute the number of blank spaces which must be added after an entry
         if arrA[inxEntr] >= 0:    # If the number is 0 or positive, add a blank space before the number
             strBlankMinus = ' '
         else:
             strBlankMinus = ''
-        strArray = strArray + strBlankMinus + strEntry + lSpacesEnt[nBlankSpace] + '\n'   # Print the entry
+        strArray = strArray + strBlankMinus + strEntry + '\n'   # Print the entry
 
         # Add a row brake, if iRowBrake entries where printed without printing a row brake
         if ((inxEntr + 1) % iRowBrake) == 0:
