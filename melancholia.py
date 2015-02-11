@@ -244,7 +244,7 @@ def _printHeader(arrA, strArrayName, bPrintHeader):
     # Print dimension, size and type of the array
     strType = arrA.dtype.name  # Get the name of the array
     if arrA.ndim == 2:
-        (nRows, nCols) = arrA.shape  # Get shape of the matrix
+        (nRows, nCols) = arrA.shape  # Get shape of the array
         strArray = strArray + '2D-array (shape - %d rows x %d cols, type - %s):\n' % (nRows, nCols, strType)
     else:
         iSize = arrA.size          # Get the size of the array
