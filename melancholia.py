@@ -401,7 +401,7 @@ def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
         # Print index of the current entry and its value
         strArray = strArray + ('%d:%s  ') % (inxEntr, lSpacesInd[nDig - 1])  # Print index of the current entry
         strEntry = eval(strPrintEntry)                # Print the entry
-        if arrA[inxEntr] >= 0:    # If the number is 0 or positive, add a blank space before the number
+        if (arrA[inxEntr] >= 0) or np.isnan(arrA[inxEntr]):  # If the number is nan, 0 or positive, add a blank space before the number
             strBlankMinus = ' '
         else:
             strBlankMinus = ''
