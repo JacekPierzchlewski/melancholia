@@ -33,7 +33,6 @@ if __name__ == '__main__':
     # %% 2 dimensional array printing directly to a file
 
     # Array printing: The simplest usage of printing to a file
-    strInfo = "This array was printed directly to a file: \n\n"
     mA = np.random.rand(10, 10)
     melancholia.dumpA(mA, strFile='2Darrays.txt')
 
