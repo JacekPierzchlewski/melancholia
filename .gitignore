@@ -1,3 +1,6 @@
 # .gitignore for > melancholia <
 *.pyc
 *.txt
+#except 
+!README.txt
+
