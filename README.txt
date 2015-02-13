@@ -1,6 +1,8 @@
 # melancholia
 
-Python module which prints Numpy 1D and 2D arrays in a human-readable way. Nice looking human-readable way.
+Python module which prints Numpy 1D and 2D arrays in a human-readable way.
+Nice looking human-readable way.
+
 Arrays can be printed to a string variable or directly to a file.
 
 EXAMPLES:
