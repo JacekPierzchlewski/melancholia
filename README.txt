@@ -5,6 +5,7 @@ Nice looking human-readable way.
 
 Arrays can be printed to a string variable or directly to a file.
 
+
 EXAMPLES:
     It is really easy to use melancholia. For example os usage go to ./examples/ directory.
 
