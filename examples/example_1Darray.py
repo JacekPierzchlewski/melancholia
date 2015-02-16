@@ -2,7 +2,7 @@
 Examples of using 'melancholia.py' module with 1D Numpy arrays..
 
 Run it:
-$ python report_1Darray_example.py.
+$ python example_1Darray.py.
 
 The script will produce a file '1Darrays.txt'.
 

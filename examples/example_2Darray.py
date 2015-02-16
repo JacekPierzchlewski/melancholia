@@ -2,7 +2,7 @@
 Examples of using 'melancholia.py' modules with 2D Numpy arrays
 
 Run it:
-$ python report_2Darray_example.py.
+$ python example_2Darray.py.
 
 The script will produce a file '2Darrays.txt'.
 
