@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Welcome to melancholia’s documentation! &mdash; melancholia 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="melancholia 1.0.0 documentation" href="#" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="#">melancholia 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="welcome-to-melancholia-s-documentation">
+<h1>Welcome to melancholia&#8217;s documentation!<a class="headerlink" href="#welcome-to-melancholia-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#about-melancholia" id="id1">About &#8216;melancholia&#8217;</a></li>
+<li><a class="reference internal" href="#download-and-install" id="id2">Download and Install</a></li>
+<li><a class="reference internal" href="#license" id="id3">License</a></li>
+<li><a class="reference internal" href="#author" id="id4">Author</a></li>
+<li><a class="reference internal" href="#writing-an-array-to-a-string-variable" id="id5">Writing an array to a string variable</a><ul>
+<li><a class="reference internal" href="#the-simplest-usage" id="id6">The simplest usage</a></li>
+<li><a class="reference internal" href="#custom-delimiter" id="id7">Custom delimiter</a></li>
+<li><a class="reference internal" href="#horizontal-printing-of-a-1d-array" id="id8">Horizontal printing of a 1D array</a></li>
+<li><a class="reference internal" href="#no-separation-between-rows-of-a-2d-array" id="id9">No separation between rows of a 2D array</a></li>
+<li><a class="reference internal" href="#custom-format-of-entries" id="id10">Custom format of entries</a></li>
+<li><a class="reference internal" href="#array-header" id="id11">Array header</a></li>
+<li><a class="reference internal" href="#array-name-in-a-header" id="id12">Array name in a header</a></li>
+<li><a class="reference internal" href="#wrap-lines-after-x-characters" id="id13">Wrap lines after x characters</a></li>
+<li><a class="reference internal" href="#wrap-lines-after-x-entries" id="id14">Wrap lines after x entries</a></li>
+<li><a class="reference internal" href="#no-separation-between-the-wrapped-lines" id="id15">No separation between the wrapped lines</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#writing-an-array-to-a-file" id="id16">Writing an array to a file</a><ul>
+<li><a class="reference internal" href="#file-mode" id="id17">File mode</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="about-melancholia">
+<h2><a class="toc-backref" href="#id1">About &#8216;melancholia&#8217;</a><a class="headerlink" href="#about-melancholia" title="Permalink to this headline">¶</a></h2>
+<p>&#8216;melancholia&#8217; is a Python module which can be used to write a Numpy array in a format which is easy to read by humans.
+An array may be printed into a string variable or into a file.</p>
+<p>&#8216;melancholia&#8217; checks the number of dimensions in an array and act acordignly -
+if an array is one dimensional, it is printed as a vector,
+if an array is two dimensional, it is printed as a matrix.
+In the latter, the first dimension of array are rows, the second diemension are columns.</p>
+<p>&#8216;melancholia&#8217; takes care of:</p>
+<ol class="arabic simple">
+<li>printing indices of vector entries, or matrix rows and columns</li>
+<li>printing entries of an array in a requested format</li>
+<li>addiing none or extra lines between the printed lines</li>
+<li>line wrapping, if needed</li>
+<li>printing delimiters between entries (default or custom)</li>
+<li>printing array names and dimensions (if requested)</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In the current version (v1.0) &#8216;melancholia&#8217; supports 1-dimensional and 2-dimensional Numpy arrays. 1 dimensional arrays can be printed vertically or horizontally.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">In the current version (v1.0) &#8216;melancholia&#8217; does not support complex numbers.</p>
+</div>
+</div>
+<div class="section" id="download-and-install">
+<h2><a class="toc-backref" href="#id2">Download and Install</a><a class="headerlink" href="#download-and-install" title="Permalink to this headline">¶</a></h2>
+<p>melancholia&#8217;s sources are availalble to download from <a class="reference external" href="http://github.com/JacekPierzchlewski/melancholia/">GitHub</a>.
+To install &#8216;melancholia&#8217; on your computer type:</p>
+<p><tt class="code docutils literal"><span class="pre">$</span> <span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt></p>
+<p>in the root directory of the melancholia&#8217;s source tree.</p>
+</div>
+<div class="section" id="license">
+<h2><a class="toc-backref" href="#id3">License</a><a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>&#8216;melancholia&#8217; is a (very) free software, it is licensed under BSD 2-clause license.</p>
+</div>
+<div class="section" id="author">
+<h2><a class="toc-backref" href="#id4">Author</a><a class="headerlink" href="#author" title="Permalink to this headline">¶</a></h2>
+<p>&#8216;melancholia&#8217; was created and is maintained by Jacek Pierzchlewski (jap _at_ es dot aau dot dk) from Aalborg University. <br />
+&#8216;melancholia&#8217; is small side project to &#8216;IRfDUCS&#8217; research project (www.irfdcus.org).</p>
+</div>
+<div class="section" id="writing-an-array-to-a-string-variable">
+<h2><a class="toc-backref" href="#id5">Writing an array to a string variable</a><a class="headerlink" href="#writing-an-array-to-a-string-variable" title="Permalink to this headline">¶</a></h2>
+<p>Function <strong>printA</strong> which is implemented in &#8216;melancholia&#8217;, is able to write a Numpy array to a string variable.
+Below there is a list of examples of using the function.
+There are more examples in files <strong>example_1Darray.py</strong> and <strong>example_2Darray.py</strong> which can be found in <strong>examples/</strong> directory.
+The first file contains examples of printing 1-dimensional arrays, the latter contains examples of printing 2-dimensional arrays.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Examples below use optional arguments to the <strong>printA</strong> function. ALL of the optional arguments to the <strong>printA</strong> function can be mixed.</p>
+</div>
+<div class="section" id="the-simplest-usage">
+<h3><a class="toc-backref" href="#id6">The simplest usage</a><a class="headerlink" href="#the-simplest-usage" title="Permalink to this headline">¶</a></h3>
+<p>The simplest usage of <strong>printA</strong> function is in the example below.
+A 2-dimensional array is passed to the function as a sole argument:</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="n">mA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="hll"> <span class="n">strA</span> <span class="o">=</span> <span class="n">melancholia</span><span class="o">.</span><span class="n">printA</span><span class="p">(</span><span class="n">mA</span><span class="p">)</span>
+</span> <span class="k">print</span><span class="p">(</span><span class="n">strA</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>which gives an output like:</p>
+<img alt="_images/printA_simplest_example.png" src="_images/printA_simplest_example.png" />
+</div>
+<div class="section" id="custom-delimiter">
+<h3><a class="toc-backref" href="#id7">Custom delimiter</a><a class="headerlink" href="#custom-delimiter" title="Permalink to this headline">¶</a></h3>
+<p>It is possible to add a custom delimiter between entries of an array. Function argument &#8216;strDelimiter&#8217; is used to define a delimiter:</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="n">mA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="hll"> <span class="n">strA</span> <span class="o">=</span> <span class="n">melancholia</span><span class="o">.</span><span class="n">printA</span><span class="p">(</span><span class="n">mA</span><span class="p">,</span> <span class="n">strDelimiter</span><span class="o">=</span><span class="s">&#39;...&#39;</span><span class="p">)</span>
+</span> <span class="k">print</span><span class="p">(</span><span class="n">strA</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The requested delimiter can be seen in the output:</p>
+<img alt="_images/printA_delimiter.png" src="_images/printA_delimiter.png" />
+</div>
+<div class="section" id="horizontal-printing-of-a-1d-array">
+<h3><a class="toc-backref" href="#id8">Horizontal printing of a 1D array</a><a class="headerlink" href="#horizontal-printing-of-a-1d-array" title="Permalink to this headline">¶</a></h3>
+<p>Numpy array with only one dimension is by default printed vertically:</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="n">vA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="hll"> <span class="n">strA</span> <span class="o">=</span> <span class="n">melancholia</span><span class="o">.</span><span class="n">printA</span><span class="p">(</span><span class="n">mA</span><span class="p">)</span>
+</span> <span class="k">print</span><span class="p">(</span><span class="n">strA</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>the result is:</p>
+<img alt="_images/printA_1Dvertical.png" src="_images/printA_1Dvertical.png" />
+<p>Function argument &#8216;bVert1D&#8217; switches on/off vertical printing of a 1D array.
+To print a matrix horizontally, the argument must be zeroed:</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="n">vA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="hll"> <span class="n">strA</span> <span class="o">=</span> <span class="n">melancholia</span><span class="o">.</span><span class="n">printA</span><span class="p">(</span><span class="n">mA</span><span class="p">,</span> <span class="n">bVert1D</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span> <span class="k">print</span><span class="p">(</span><span class="n">strA</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The array is now printed horizontally:</p>
+<img alt="_images/printA_1Dhorizontal.png" src="_images/printA_1Dhorizontal.png" />
+</div>
+<div class="section" id="no-separation-between-rows-of-a-2d-array">
+<h3><a class="toc-backref" href="#id9">No separation between rows of a 2D array</a><a class="headerlink" href="#no-separation-between-rows-of-a-2d-array" title="Permalink to this headline">¶</a></h3>
+<p>By default, there is always one line separation between rows of a 2D array. Function argument &#8216;iRowSpaces&#8217; regulates the number of empty lines printed between the rows.
+To print an array in a more compressed way, without any rows separation, the argument must be zeroed:</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="n">mA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="hll"> <span class="n">strA</span> <span class="o">=</span> <span class="n">melancholia</span><span class="o">.</span><span class="n">printA</span><span class="p">(</span><span class="n">mA</span><span class="p">,</span> <span class="n">iRowSpaces</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span> <span class="k">print</span><span class="p">(</span><span class="n">strA</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>which gives an output like:</p>
+<img alt="_images/printA_2Dnoseparation.png" src="_images/printA_2Dnoseparation.png" />
+</div>
+<div class="section" id="custom-format-of-entries">
+<h3><a class="toc-backref" href="#id10">Custom format of entries</a><a class="headerlink" href="#custom-format-of-entries" title="Permalink to this headline">¶</a></h3>
+<p>By default, the custom format of entries is &#8216;%.6f&#8217;. Function argument &#8216;strFormat&#8217; regulates the format of entries. Allowed formats are &#8216;%d&#8217; (integer numbers), %.1f, %.2f, %.3f...etc.
+In the example below the entries are printed as integers:</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="n">mA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="hll"> <span class="n">strA</span> <span class="o">=</span> <span class="n">melancholia</span><span class="o">.</span><span class="n">printA</span><span class="p">(</span><span class="n">mA</span><span class="p">,</span> <span class="n">strFormat</span><span class="o">=</span><span class="s">&#39;</span><span class="si">%d</span><span class="s">&#39;</span><span class="p">)</span>
+</span> <span class="k">print</span><span class="p">(</span><span class="n">strA</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>which gives an output like:</p>
+<img alt="_images/printA_format.png" src="_images/printA_format.png" />
+</div>
+<div class="section" id="array-header">
+<h3><a class="toc-backref" href="#id11">Array header</a><a class="headerlink" href="#array-header" title="Permalink to this headline">¶</a></h3>
+<p>It is possible to add a header before an array is printed.
+Header contains information about the number of dimensions of an array, its shape and the type of entries.
+Function argument &#8216;bPrintHeader&#8217; adds a header:</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="n">mA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="hll"> <span class="n">strA</span> <span class="o">=</span> <span class="n">melancholia</span><span class="o">.</span><span class="n">printA</span><span class="p">(</span><span class="n">mA</span><span class="p">,</span> <span class="n">bPrintHeader</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span> <span class="k">print</span><span class="p">(</span><span class="n">strA</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>now there is a header added before an array:</p>
+<img alt="_images/printA_header.png" src="_images/printA_header.png" />
+</div>
+<div class="section" id="array-name-in-a-header">
+<h3><a class="toc-backref" href="#id12">Array name in a header</a><a class="headerlink" href="#array-name-in-a-header" title="Permalink to this headline">¶</a></h3>
+<p>Function argument &#8216;strArrayName&#8217; is used to add an array name to the header of an array:</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="n">mA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="hll"> <span class="n">strA</span> <span class="o">=</span> <span class="n">melancholia</span><span class="o">.</span><span class="n">printA</span><span class="p">(</span><span class="n">mA</span><span class="p">,</span> <span class="n">strArrayName</span><span class="o">=</span><span class="s">&#39;mA&#39;</span><span class="p">,</span> <span class="n">bPrintHeader</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span> <span class="k">print</span><span class="p">(</span><span class="n">strA</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>the array name is added to the header:</p>
+<img alt="_images/printA_headername.png" src="_images/printA_headername.png" />
+</div>
+<div class="section" id="wrap-lines-after-x-characters">
+<h3><a class="toc-backref" href="#id13">Wrap lines after x characters</a><a class="headerlink" href="#wrap-lines-after-x-characters" title="Permalink to this headline">¶</a></h3>
+<p>If a 2D array, or a 1D array printed horizontally, has many entries in a single row, it may be needed to wrap lines with the entries.
+By deafult, the line is wrapped after 4096 characters. This may be regulated using &#8216;iMaxCols&#8217; argument. In the example below the lines
+are wrapped NOT LATER then after printing 89 characters. Note: new line &#8216;\n&#8217; is treated as a character.</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="n">mA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="hll"> <span class="n">strA</span> <span class="o">=</span> <span class="n">melancholia</span><span class="o">.</span><span class="n">printA</span><span class="p">(</span><span class="n">mA</span><span class="p">,</span> <span class="n">iMaxCols</span><span class="o">=</span><span class="mi">89</span><span class="p">)</span>
+</span> <span class="k">print</span><span class="p">(</span><span class="n">strA</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>the lines are now wrapped:</p>
+<img alt="_images/printA_wrapAfterXCharacters.png" src="_images/printA_wrapAfterXCharacters.png" />
+</div>
+<div class="section" id="wrap-lines-after-x-entries">
+<h3><a class="toc-backref" href="#id14">Wrap lines after x entries</a><a class="headerlink" href="#wrap-lines-after-x-entries" title="Permalink to this headline">¶</a></h3>
+<p>With argument &#8216;iMaxEntr&#8217; it is possible to regulate line wrapping so that the lines are wrapped after given number of printed entries:</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="n">mA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="hll"> <span class="n">strA</span> <span class="o">=</span> <span class="n">melancholia</span><span class="o">.</span><span class="n">printA</span><span class="p">(</span><span class="n">mA</span><span class="p">,</span> <span class="n">iMaxEntr</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+</span> <span class="k">print</span><span class="p">(</span><span class="n">strA</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>the lines are now wrapped after 9 printed entries:</p>
+<img alt="_images/printA_wrapAfterXEntries.png" src="_images/printA_wrapAfterXEntries.png" />
+</div>
+<div class="section" id="no-separation-between-the-wrapped-lines">
+<h3><a class="toc-backref" href="#id15">No separation between the wrapped lines</a><a class="headerlink" href="#no-separation-between-the-wrapped-lines" title="Permalink to this headline">¶</a></h3>
+<p>If an array is printed with line wrapping, by default there is one line separation between wrapped lines.
+Argument &#8216;iLineSpaces&#8217; is able to regulate the spacing between the lines.
+To remove any separation between the wrapped lines, the argument &#8216;iLineSpaces&#8217; must be zeroed:</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="n">mA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="hll"> <span class="n">strA</span> <span class="o">=</span> <span class="n">melancholia</span><span class="o">.</span><span class="n">printA</span><span class="p">(</span><span class="n">mA</span><span class="p">,</span> <span class="n">iMaxEntr</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">iLineSpaces</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span> <span class="k">print</span><span class="p">(</span><span class="n">strA</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>the lines are now wrapped without any line separation:</p>
+<img alt="_images/printA_wrapNoSeparation.png" src="_images/printA_wrapNoSeparation.png" />
+</div>
+</div>
+<div class="section" id="writing-an-array-to-a-file">
+<h2><a class="toc-backref" href="#id16">Writing an array to a file</a><a class="headerlink" href="#writing-an-array-to-a-file" title="Permalink to this headline">¶</a></h2>
+<p>Function <strong>dumpA</strong> which is implemented in &#8216;melancholia&#8217;, is able to write a Numpy array to a string variable.
+It takes two required arguments: an array to be printed to a file and a filename.
+The function is in fact an overlay to the <strong>printA</strong> function, hence
+all of the arguments which can be used with <strong>printA</strong> function (described above) work with <strong>dumpA</strong> function.
+An example below writes an array to a <em>array.txt</em> file:</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="n">mA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="hll"> <span class="n">melancholia</span><span class="o">.</span><span class="n">dumpA</span><span class="p">(</span><span class="n">mA</span><span class="p">,</span> <span class="n">strFile</span><span class="o">=</span><span class="s">&#39;array.txt&#39;</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<div class="section" id="file-mode">
+<h3><a class="toc-backref" href="#id17">File mode</a><a class="headerlink" href="#file-mode" title="Permalink to this headline">¶</a></h3>
+<p>By deafult the file is opened with mode &#8216;w&#8217; (write). Argument &#8216;strMode&#8217; can be used to open a file in the &#8216;a&#8217; (append) mode:</p>
+<div class="highlight-python"><div class="highlight"><pre> <span class="n">mA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="hll"> <span class="n">melancholia</span><span class="o">.</span><span class="n">dumpA</span><span class="p">(</span><span class="n">mA</span><span class="p">,</span> <span class="n">strFile</span><span class="o">=</span><span class="s">&#39;array.txt&#39;</span><span class="p">,</span> <span class="n">strMode</span><span class="o">=</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>In the &#8216;a&#8217; (append) mode array is added to the end of file, while in the &#8216;w&#8217; write mode, a new file is created.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">In the write mode, an existing file of a given name will be deleted and overwritten.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to melancholia&#8217;s documentation!</a><ul>
+<li><a class="reference internal" href="#about-melancholia">About &#8216;melancholia&#8217;</a></li>
+<li><a class="reference internal" href="#download-and-install">Download and Install</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
+<li><a class="reference internal" href="#author">Author</a></li>
+<li><a class="reference internal" href="#writing-an-array-to-a-string-variable">Writing an array to a string variable</a><ul>
+<li><a class="reference internal" href="#the-simplest-usage">The simplest usage</a></li>
+<li><a class="reference internal" href="#custom-delimiter">Custom delimiter</a></li>
+<li><a class="reference internal" href="#horizontal-printing-of-a-1d-array">Horizontal printing of a 1D array</a></li>
+<li><a class="reference internal" href="#no-separation-between-rows-of-a-2d-array">No separation between rows of a 2D array</a></li>
+<li><a class="reference internal" href="#custom-format-of-entries">Custom format of entries</a></li>
+<li><a class="reference internal" href="#array-header">Array header</a></li>
+<li><a class="reference internal" href="#array-name-in-a-header">Array name in a header</a></li>
+<li><a class="reference internal" href="#wrap-lines-after-x-characters">Wrap lines after x characters</a></li>
+<li><a class="reference internal" href="#wrap-lines-after-x-entries">Wrap lines after x entries</a></li>
+<li><a class="reference internal" href="#no-separation-between-the-wrapped-lines">No separation between the wrapped lines</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#writing-an-array-to-a-file">Writing an array to a file</a><ul>
+<li><a class="reference internal" href="#file-mode">File mode</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="#">melancholia 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Jacek Pierzchlewski.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
