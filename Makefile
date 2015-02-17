@@ -1,4 +1,7 @@
-# Makefile for melancholia, v1.0 (13 Feb 2015)
+# Makefile for melancholia, v1.2 (17 Feb 2015)
+htmldoc:
+	make -C docs html
+
 pep8:
 	pep8 --ignore=E501 *.py
 
