@@ -5,6 +5,7 @@
 
 Welcome to melancholia's documentation!
 =======================================
+**'melancholia' - print a Numpy array to a file or a variable in a human-readable way.**
 
 .. contents:: :local:
 
@@ -62,7 +63,7 @@ License
 Author
 ------------------------------------------------------------------
 'melancholia' was created and is maintained by Jacek Pierzchlewski (jap _at_ es dot aau dot dk) from Aalborg University. |br|
-'melancholia' is small side project to 'IRfDUCS' research project (www.irfdcus.org).
+'melancholia' is small side project to 'IRfDUCS' research project `www.irfducs.org <http://www.irfducs.org>`_.
 
 
 Writing an array to a string variable
