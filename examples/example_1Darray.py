@@ -19,6 +19,7 @@ Copyright (C) <2015>  Jacek Pierzchlewski
 *Version*:
     1.0-alpha  |  9-FEB-2015 : * Alpha version is ready. |br|
     1.0        | 13-FEB-2015 : * Version 1.0 is ready. |br|
+    1.0-r1     | 18-FEB-2015 : * Comments cosmetics. |br|
 
 *License*:
     BSD 2-Clause
@@ -30,13 +31,13 @@ import melancholia
 if __name__ == '__main__':
 
 
-    # %% 1 dimensional array printing to a file
+    # %% 1 dimensional array printed to a file
 
     # Array printing: The simplest usage of printing to a file
     vA = np.random.rand(100)
     melancholia.dumpA(vA, strFile='1Darrays.txt')
 
-    # %% 1 dimensional array printing to a file
+    # %% 1 dimensional arrays printed to a variable (and then to a file)
 
     hReport = open('1Darrays.txt', 'a')      # Open the file
 

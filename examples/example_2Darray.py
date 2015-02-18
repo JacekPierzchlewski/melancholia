@@ -19,6 +19,7 @@ Copyright (C) <2015>  Jacek Pierzchlewski
 *Version*:
     1.0-alpha  |  9-FEB-2015 : * Alpha version is ready. |br|
     1.0        | 13-FEB-2015 : * Version 1.0 is ready. |br|
+    1.0-r1     | 18-FEB-2015 : * Comments cosmetics. |br|
 
 *License*:
     BSD 2-Clause
@@ -30,15 +31,15 @@ import melancholia
 if __name__ == '__main__':
 
 
-    # %% 2 dimensional array printing directly to a file
+    # %% 2 dimensional array printed directly to a file
 
     # Array printing: The simplest usage of printing to a file
     mA = np.random.rand(10, 10)
     melancholia.dumpA(mA, strFile='2Darrays.txt')
 
-    # %% 2 dimensional array printing
+    # %% 2 dimensional arrays printed to a variable (and then to a file)
 
-    hReport = open('2Darrays.txt', 'a')      # Open a file with matrices
+    hReport = open('2Darrays.txt', 'a')      # Start a file with arrays
 
     # The simplest usage
     strInfo = "The simplest example of 2D array printing: \n\n"
@@ -76,7 +77,7 @@ if __name__ == '__main__':
     strPrintedMat = strInfo + melancholia.printA(mA, strFormat='%d', strDelimiter=' <---> ')
     hReport.write(strPrintedMat)
 
-    # Add array name and header
+    # Add array name and a header
     strInfo = "2D array printing with integer format, custom delimiter and array header: \n\n"
     mA = np.random.rand(10, 10)
     strPrintedMat = strInfo + melancholia.printA(mA, strFormat='%.2f', strDelimiter='...',
