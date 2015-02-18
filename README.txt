@@ -6,10 +6,14 @@ Nice looking human-readable way.
 Arrays can be printed to a string variable or directly to a file.
 
 
+DOCUMENTATION:
+    Melancholia's documentation can be found in:   http://www.irfducs.org/melancholia
+
 EXAMPLES:
     It is really easy to use melancholia. For example os usage go to ./examples/ directory.
 
 INSTALLATION:
+    To install melancholia in your system please run in melancholia's root directory:
     $ python setup.py install
 
 AUTHOR:
@@ -17,3 +21,6 @@ AUTHOR:
 
 LICENSE:
     BSD 2-clause
+
+PLATFORM:
+    Linux, OS X
