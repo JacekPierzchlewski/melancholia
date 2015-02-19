@@ -1,6 +1,5 @@
 # .gitignore for > melancholia <
 *.pyc
-*.txt
 #except 
 !README.txt
 docs/_build
