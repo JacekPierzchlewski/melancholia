@@ -1,5 +1,5 @@
 """
-Examples of using 'melancholia.py' modules with 2D Numpy arrays
+Examples of using 'melancholia.py' modules with 2D NumPy arrays
 
 Run it:
 $ python example_2Darray.py.

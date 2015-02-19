@@ -1,5 +1,5 @@
 """
-This module prints Numpy arrays in a human readable way. |br|
+This module prints NumPy arrays in a human readable way. |br|
 
 
 *List of functions*:
@@ -14,7 +14,7 @@ This module prints Numpy arrays in a human readable way. |br|
 
                 general usage:
 
-                    - _printHeader:       function prints a header before a Numpy array is printed
+                    - _printHeader:       function prints a header before a NumPy array is printed
 
                     - _decodeString:      function decodes the string with printing format
 
@@ -87,14 +87,14 @@ def dumpA(arrA, strFile, strMode='w', strArrayName='', strFormat='%f', iRowBrake
     """
     Function prints 1D or 2D numpy array to a text file
 
-    This is the function which prints a Numpy array to a text file.
+    This is the function which prints a NumPy array to a text file.
     Take a look on files: 'report_1Darray_example' and 'report_2Darray_example' for
     examples of usage.
 
 
     Input:
 
-    - 1 **arrA** (*Numpy array*)     Array to be printed
+    - 1 **arrA** (*NumPy array*)     Array to be printed
 
     - 2 **strFile** (*string*)       Name of the file to save the array
 
@@ -148,14 +148,14 @@ def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='  
     Function prints 1D or 2D numpy array to a string variable
 
 
-    This is the function which prints a Numpy array to a string variable.
+    This is the function which prints a NumPy array to a string variable.
     Take a look on files: 'report_1Darray_example' and 'report_2Darray_example' for
     examples of usage.
 
 
     Input:
 
-    - 1 **arrA** (*Numpy array*)     Array to be printed
+    - 1 **arrA** (*NumPy array*)     Array to be printed
 
     - 2 **strArrayName** (*string*)  Name of the array [optional, default = '']
 
@@ -206,7 +206,7 @@ def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='  
                               iMaxCols, iMaxEntr, bPrintHeader, iLineSpaces, iRowSpaces)
     # If the array has neither 1 nor 2 dimensions, it is an error
     else:
-        raise ValueError('Numpy array which is to be printed to a file must be of 1- or 2-dimensions!')
+        raise ValueError('NumPy array which is to be printed to a file must be of 1- or 2-dimensions!')
 
     return strArray
 
@@ -214,12 +214,12 @@ def printA(arrA, strArrayName='', strFormat='%f', iRowBrake=20, strDelimiter='  
 # %%#############################################################################
 def _printHeader(arrA, strArrayName, bPrintHeader):
     """
-    Function prints a header before a Numpy array is printed
+    Function prints a header before a NumPy array is printed
 
 
     Input:
 
-    - 1. **arrA** (*Numpy array*)    Array to be printed
+    - 1. **arrA** (*NumPy array*)    Array to be printed
 
     - 2 **strArrayName** (*string*)  Name of the array
 
@@ -354,7 +354,7 @@ def _1DarrayVert(arrA, strArrayName, strFormat, iRowBrake, bPrintHeader):
 
     Input:
 
-    - 1 **arrA** (*Numpy array*)      Array to be printed
+    - 1 **arrA** (*NumPy array*)      Array to be printed
 
     - 2 **strArrayName** (*string*)   Name of the array
 
@@ -424,7 +424,7 @@ def _1DarrayHori(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCol
 
     Input:
 
-    - 1 **arrA** (*Numpy array*)      Array to be printed
+    - 1 **arrA** (*NumPy array*)      Array to be printed
 
     - 2 **strArrayName** (*string*)   Name of the array
 
@@ -511,7 +511,7 @@ def _1DgetTechnical(arrA, strFormat, strDelimiter):
 
     Input:
 
-    - 1 **arrA** (*Numpy array*)      Array to be printed
+    - 1 **arrA** (*NumPy array*)      Array to be printed
 
     - 2 **strFormat** (*string*)      Format of printing entires of the array
 
@@ -733,7 +733,7 @@ def _1DprintIndices(arrA, iStartEntry, nEntries, lSpacesInd, strAddSpaceInd, nD)
 
     Input:
 
-    - 1 **arrA** (*Numpy array*)       Array to be printed
+    - 1 **arrA** (*NumPy array*)       Array to be printed
 
     - 2 **iStartEntry** (*int*)        Index of the first entry to be printed
 
@@ -777,7 +777,7 @@ def _1DprintEntries(arrA, iStartEntry, nEntries, strAddSpaceEnt, lSpaces, strDel
 
     Input:
 
-    - 1 **arrA** (*Numpy array*)        Array to be printed
+    - 1 **arrA** (*NumPy array*)        Array to be printed
 
     - 2 **iStartEntry** (*int*)         Index of the first entry to be printed
 
@@ -821,7 +821,7 @@ def _2Darray(arrA, strArrayName, strFormat, iRowBrake, strDelimiter, iMaxCols, i
 
     Input:
 
-    - 1 **arrA** (*Numpy array*)      Array to be printed
+    - 1 **arrA** (*NumPy array*)      Array to be printed
 
     - 2 **strArrayName** (*string*)   Name of the array
 
@@ -929,7 +929,7 @@ def _2DgetTechnical(arrA, strFormat, strDelimiter):
 
     Input:
 
-    - 1 **arrA** (*Numpy array*)      Array to be printed
+    - 1 **arrA** (*NumPy array*)      Array to be printed
 
     - 2 **strFormat** (*string*)      Format of printing entires of the array
 
@@ -1249,7 +1249,7 @@ def _2DprintRow(arrA, inxRow, iStartCol, nEntries, nMaxChrEnt, strFormat, strAdd
 
     Input:
 
-    - 1 **arrA** (*Numpy array*)           Array to be printed
+    - 1 **arrA** (*NumPy array*)           Array to be printed
 
     - 2 **inxRow** (*int*)                 Index of the rows from which the entries are printed
 

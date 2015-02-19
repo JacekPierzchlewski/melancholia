@@ -5,7 +5,7 @@
 
 Welcome to melancholia's documentation!
 =======================================
-**'melancholia' - print a Numpy array to a file or a variable in a human-readable way.**
+**'melancholia' - print a NumPy array to a file or a variable in a human-readable way.**
 
 .. contents:: :local:
 
@@ -13,7 +13,7 @@ Welcome to melancholia's documentation!
 
 About 'melancholia'
 ------------------------------------------------------------------
-'melancholia' is a Python module which can be used to write a Numpy array in a format which is easy to read by humans.
+'melancholia' is a Python module which can be used to write a NumPy array in a format which is easy to read by humans.
 An array may be printed into a string variable or into a file.
 
 'melancholia' checks the number of dimensions in an array and act acordignly -
@@ -38,7 +38,7 @@ In the latter, the first dimension of array are rows, the second diemension are 
 
 .. note::
 
-    In the current version (v1.0) 'melancholia' supports 1-dimensional and 2-dimensional Numpy arrays. 1 dimensional arrays can be printed vertically or horizontally.
+    In the current version (v1.0) 'melancholia' supports 1-dimensional and 2-dimensional NumPy arrays. 1 dimensional arrays can be printed vertically or horizontally.
 
 .. warning::
 
@@ -69,7 +69,7 @@ Author
 Writing an array to a string variable
 ------------------------------------------------------------------
 
-Function **printA** which is implemented in 'melancholia', is able to write a Numpy array to a string variable.
+Function **printA** which is implemented in 'melancholia', is able to write a NumPy array to a string variable.
 Below there is a list of examples of using the function.
 There are more examples in files **example_1Darray.py** and **example_2Darray.py** which can be found in **examples/** directory.
 The first file contains examples of printing 1-dimensional arrays, the latter contains examples of printing 2-dimensional arrays.
@@ -116,7 +116,7 @@ The requested delimiter can be seen in the output:
 
 Horizontal printing of a 1D array
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Numpy array with only one dimension is by default printed vertically:
+NumPy array with only one dimension is by default printed vertically:
 
 .. code-block:: python
    :emphasize-lines: 2
@@ -266,7 +266,7 @@ the lines are now wrapped without any line separation:
 
 Writing an array to a file
 ------------------------------------------------------------------
-Function **dumpA** which is implemented in 'melancholia', is able to write a Numpy array to a string variable.
+Function **dumpA** which is implemented in 'melancholia', is able to write a NumPy array to a string variable.
 It takes two required arguments: an array to be printed to a file and a filename.
 The function is in fact an overlay to the **printA** function, hence
 all of the arguments which can be used with **printA** function (described above) work with **dumpA** function.
