@@ -42,7 +42,7 @@ if __name__ == '__main__':
     hReport = open('1Darrays.txt', 'a')      # Open the file
 
     # Array printing: The simplest usage of printing to a variable
-    strInfo = "The simplest example of 2D array printing: \n\n"
+    strInfo = "The simplest example of 1D array printing: \n\n"
     vA = np.random.rand(100)
     strPrintedVect = strInfo + melancholia.printA(vA)
     hReport.write(strPrintedVect)
