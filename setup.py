@@ -12,6 +12,7 @@ setup(name='melancholia',
       license='BSD 2-clause',
       platforms='Linux, OS X',
       description='Print Numpy arrays in a human readable way',
-      long_description = """Module prints Numpy arrays in a human readable way. Nice looking human readable way.
+      long_description="""Module prints Numpy arrays in a human readable way.
+      Nice looking human readable way.
       Arrays can be printed to a string variable or directly to a file."""
       )
