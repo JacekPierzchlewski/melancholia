@@ -3,3 +3,5 @@
 #except 
 !README.txt
 docs/_build
+.spyder*
+
