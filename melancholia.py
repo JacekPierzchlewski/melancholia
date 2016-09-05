@@ -70,18 +70,15 @@ This module prints NumPy arrays in a human readable way. |br|
                 - _2DprintRow:        function prints selected entries from
                                       the current row for a 2D array
 
-Copyright (C) <2014-2015>  Jacek Pierzchlewski
-                           jap [at] es dot aau dot dk
+Copyright (C) <2014-2016>  Jacek Pierzchlewski
                            pierzchlewski dot jacek [at] gmail.com
 
 *Authors*:
     Jacek Pierzchlewski, Aalborg University, Denmark.
-            <jap@es.aau.dk>
-            jap [at] es.aau.dk
             pierzchlewski dot jacek [at] gmail.com
 
 *Version*:
-    1.0-alpha  | 9-FEB-2015 : * Alpha version is ready. |br|
+    1.0-alpha  | 9-FEB-2015 :  * Alpha version is ready. |br|
     1.0-beta   | 10-FEB-2015 : * Beta version is ready. |br|
     1.0        | 11-FEB-2015 : * 1.0 version is ready. |br|
     1.0r1      | 05-SEP-2016 : * pep8 improvements in code |br|
